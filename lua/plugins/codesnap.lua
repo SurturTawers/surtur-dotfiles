@@ -1,0 +1,14 @@
+return {}
+-- return {
+--   "mistricky/codesnap.nvim",
+--   build = "make",
+--   version = "^1",
+--   cmd = "CodeSnapPreviewOn",
+--   config = function ()
+--     require('codesnap').setup({
+--       save_path = "~/Documents/code_screenshots",
+--       bg_theme = "grape",
+--       watermark = ""
+--     })
+--   end
+-- }
