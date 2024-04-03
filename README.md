@@ -1,4 +1,15 @@
 # NVIM conf
+## Needed 
+* cmake
+* gcc
+* fd
+* ripgrep
+* fzf
+* python
+* wget
+* npm
+* wezterm or iterm2
+
 ## TMUX 
 * .tmux.conf is only here to keep track of my configuration
 ```bash
@@ -6,6 +17,22 @@
 cp ~/.config/nvim/.tmux.conf ~/.tmux.conf
 # to update tmux conf 
 cp ~/.tmux.conf ~/.config/nvim/.tmux.conf
+```
+
+## YABAI AND SKHD (tiling manager and keyboard shortcuts)
+* only for config maintaining purposes
+```bash
+brew install koekeishiya/formulae/yabai
+brew install koekeishiya/formulae/skhd
+#without repo
+mkdir ~/.config/yabai ~/.config/skhd
+mkdir ~/.config/yabai/yabairc ~/.config/skhd/skhdrc
+#with my repo
+cp yabai ~/config/yabai
+cp skhd ~/config/skhd
+# start services
+yabai --start-service
+skhd --start-service
 ```
 ## CONTENTS
 * []
