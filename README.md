@@ -28,12 +28,23 @@ brew install koekeishiya/formulae/skhd
 mkdir ~/.config/yabai ~/.config/skhd
 mkdir ~/.config/yabai/yabairc ~/.config/skhd/skhdrc
 #with my repo
-cp yabai ~/config/yabai
-cp skhd ~/config/skhd
+cp yabai ~/.config/yabai
+cp skhd ~/.config/skhd
 # start services
 yabai --start-service
 skhd --start-service
 ```
+
+´´´
+brew install composer
+
+python3 -m pip install --user --upgrade pynvim
+
+# Install npm 
+# nvm install
+nvim install 20
+npm i -g neovim
+´´´
 ## CONTENTS
 * []
 
