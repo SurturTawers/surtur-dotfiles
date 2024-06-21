@@ -9,6 +9,7 @@ local ts_languages = {
 	"json",
 	"lua",
 	"markdown",
+  "markdown_inline",
 	"php",
 	"python",
 	"scss",
@@ -23,13 +24,17 @@ local ts_languages = {
 
 return {
 	"nvim-treesitter/nvim-treesitter",
+  event = {"BufReadPre", "BufNewFile"},
 	build = ":TSUpdate",
+  dependencies = {
+    "windwp/nvim-ts-autotag",
+  },
 	config = function()
-		local config = require("nvim-treesitter.configs")
-		config.setup({
-			ensure_installed = ts_languages,
+		local treesitter = require("nvim-treesitter.configs")
+		treesitter.setup({
 			highlight = { enable = true },
 			indent = { enable = true },
+			ensure_installed = ts_languages,
 		})
 	end,
 }
