@@ -84,6 +84,3 @@ npm i -g neovim
 -
 
 ## Code Screenshots
-
-- Carbon
-- i want to include CodeSnap
