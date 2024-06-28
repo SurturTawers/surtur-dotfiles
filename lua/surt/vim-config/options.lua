@@ -35,4 +35,3 @@ options.signcolumn = "yes"
 options.termguicolors = true
 
 vim.o.autoread = true
-
