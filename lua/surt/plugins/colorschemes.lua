@@ -135,7 +135,17 @@ local colorschemes = {
 	nightfox = {
 		"EdenEast/nightfox.nvim",
 		config = function()
-			require("nightfox").setup({})
+			require("nightfox").setup({
+				options = {
+					dim_inactive = true,
+					terminal_colors = true,
+					styles = {
+						comments = "italic",
+						constants = "bold",
+						keywords = "italic",
+					},
+				},
+			})
 			vim.cmd.colorscheme("duskfox")
 		end,
 	},
