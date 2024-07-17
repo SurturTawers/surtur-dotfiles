@@ -21,10 +21,10 @@ config. =
 --]]
 
 config.font = wezterm.font("JetBrains Mono")
-config.font_size = 9.0
+config.font_size = 12.0
 config.text_background_opacity = 0.5
 
-config.window_background_opacity = 0.83
+config.window_background_opacity = 0.75
 config.window_padding = {
 	left = 0,
 	right = 5,
@@ -33,7 +33,7 @@ config.window_padding = {
 }
 
 config.window_frame = {
-	font_size = 9.0,
+	font_size = 12.0,
 }
 
 config.enable_scroll_bar = true

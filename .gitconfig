@@ -1,5 +1,5 @@
+# This is Git's per-user configuration file.
 [user]
-	email = davtorresga@gmail.com
-	name = SurturTawers
-[core]
-	editor = nvim
+# Please adapt and uncomment the following lines:
+#	name = DavidTorres-kastor
+#	email = david.torres@kastor.cl
