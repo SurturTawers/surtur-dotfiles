@@ -1,28 +1,41 @@
-# NVIM conf
-## TMUX 
-* .tmux.conf is only here to keep track of my configuration
-```bash
-# To use this conf, nvim config must exist
-cp ~/.config/nvim/.tmux.conf ~/.tmux.conf
-# to update tmux conf 
-cp ~/.tmux.conf ~/.config/nvim/.tmux.conf
-```
-## CONTENTS
-* []
+# DOTFILES
 
-## Telescope
+## .bashrc
 
-## LSP
-*
+- oh-my-posh
+- .ohmybash.omp.json as config for oh-my-posh
 
+## .tmux.conf
 
-## Tree-sitter
-*
+- tpm
 
-## Autocompletion
-*
+## .vimrc
 
+- vim
 
-## Code Screenshots
-* Carbon
-* i want to include CodeSnap
+## .ideavimrc
+
+- for jetbrains products
+- in development
+
+## .config
+
+### .WEZTERM
+
+- install wezterm
+- nerd fonts
+
+### NVIM
+
+- neovim
+- fzf
+- ripgrep
+- php
+- python
+- lazygit
+- xdebug
+- cargo
+- make
+- delve
+- gcc
+- git
