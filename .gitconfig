@@ -1,4 +1,6 @@
 # This is Git's per-user configuration file.
 [user]
 	name = DavidTorres-kastor
-	email = david.torres@kastor.cl
+  email = david.torres@kastor.cl
+[core]
+  editor = nvim
