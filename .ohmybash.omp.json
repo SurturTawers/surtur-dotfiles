@@ -92,10 +92,7 @@
           "type": "os",
           "style": "plain",
           "foreground": "#E75320",
-          "template": "{{.Icon}}  ",
-          "properties": {
-            "macos": "mac"
-          }
+          "template": "{{.Icon}}  "
         },
         {
           "properties": {
