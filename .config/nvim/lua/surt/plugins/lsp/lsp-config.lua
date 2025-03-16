@@ -149,6 +149,21 @@ return {
         })
       end,
       --]]
+			--[[ ["dartls"] = function()
+				lspconfig["dartls"].setup({
+					capabilities = capabilities,
+					cmd = { "dart", "language-server", "--protocol=lsp" },
+					filetypes = { "dart" },
+					init_options = {
+						closingLabels = true,
+						flutterOutline = true,
+						onlyAnalyzeProjectsWithOpenFiles = true,
+						outline = true,
+						suggestFromUnimportedLibraries = true,
+					},
+				})
+			end,
+      --]]
 			["lua_ls"] = function()
 				-- configure lua server (with special settings)
 				lspconfig["lua_ls"].setup({

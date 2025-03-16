@@ -123,7 +123,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 export PATH=$PATH:/home/surt/.spicetify
-. "$HOME/.cargo/env"
+# . "$HOME/.cargo/env"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
@@ -139,5 +139,12 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
+export PATH=$PATH:/home/surt/.local/bin
+export PATH="$PATH:/opt/nvim/bin"
+export PATH="/home/surt/development/flutter/bin:$PATH"
 
 eval "$(oh-my-posh init bash --config ~/.ohmybash.omp.json)"
+
+
+# Load Angular CLI autocompletion.
+source <(ng completion script)

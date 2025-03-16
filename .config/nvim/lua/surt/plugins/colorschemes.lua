@@ -83,6 +83,12 @@ local colorschemes = {
 		config = function()
 			require("everforest").setup({
 				-- Your config here
+				background = "hard",
+				--transparent_background_level = 2,
+				italics = true,
+				colours_override = function(palette)
+					palette.bg0 = "#1A1A22" -- Override background color
+				end,
 			})
 			vim.cmd.colorscheme("everforest")
 		end,
@@ -151,4 +157,4 @@ local colorschemes = {
 	},
 }
 
-return colorschemes["nightfox"]
+return colorschemes["everforest"]
