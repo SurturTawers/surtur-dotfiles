@@ -38,7 +38,7 @@ return {
 				pickers = {
 					live_grep = {
 						file_ignore_patterns = {
-							".git",
+							"**/.git/**",
 							"node_modules",
 							"dist",
 						},
@@ -49,7 +49,7 @@ return {
 					find_files = {
 						hidden = true,
 						file_ignore_patterns = {
-							".git",
+							"**/.git/**",
 							"node_modules",
 							"dist",
 							"package-lock.json",
