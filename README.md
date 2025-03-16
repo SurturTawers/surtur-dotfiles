@@ -11,14 +11,14 @@ stow . # Will symlink current dir to ../
 stow <dirToSymlink> -t <targetDir> # This will Symlink to targetDir
 ```
 
-## .bashrc
+## .zshrc
 
 - [oh-my-posh](https://ohmyposh.dev/)
-- .ohmybash.omp.json as config for oh-my-posh
+- .ohmytheme.omp.json as config for oh-my-posh
 
 ```bash
 # INSTALL into /usr/local/bin , use sudo su
-curl -s https://ohmyposh.dev/install.sh | bash -s
+brew install jandedobbeleer/oh-my-posh/oh-my-posh
 # INIT
 oh-my-posh init <shell> --config ~/<yourTheme> #initializes the shell
 #.bashrc
