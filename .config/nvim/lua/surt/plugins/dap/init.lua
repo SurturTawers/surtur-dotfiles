@@ -1,3 +1,6 @@
+return {}
+--[[
+
 local dap, dapui, hydra = require("dap"), require("dapui"), require("hydra")
 
 require("nvim-dap-virtual-text").setup({})
@@ -52,7 +55,6 @@ local hint = [[
  _h_: Show information of the variable under the cursor ^
  _x_: Stop Debbuging ^
  ^^                                                      _<Esc>_
-]]
 
 hydra({
 	name = "dap",
@@ -103,3 +105,5 @@ hydra({
 		{ "<Esc>", nil, { exit = true } },
 	},
 })
+
+--]]
