@@ -2,6 +2,7 @@ local ts_languages = {
 	"bash",
 	"css",
 	"csv",
+	"dart",
 	"dockerfile",
 	"gitignore",
 	"html",
@@ -9,7 +10,7 @@ local ts_languages = {
 	"json",
 	"lua",
 	"markdown",
-  "markdown_inline",
+	"markdown_inline",
 	"php",
 	"python",
 	"scss",
@@ -18,17 +19,17 @@ local ts_languages = {
 	"typescript",
 	"vim",
 	"vimdoc",
-  "xml",
+	"xml",
 	"yaml",
 }
 
 return {
 	"nvim-treesitter/nvim-treesitter",
-  event = {"BufReadPre", "BufNewFile"},
+	event = { "BufReadPre", "BufNewFile" },
 	build = ":TSUpdate",
-  dependencies = {
-    "windwp/nvim-ts-autotag",
-  },
+	dependencies = {
+		"windwp/nvim-ts-autotag",
+	},
 	config = function()
 		local treesitter = require("nvim-treesitter.configs")
 		treesitter.setup({

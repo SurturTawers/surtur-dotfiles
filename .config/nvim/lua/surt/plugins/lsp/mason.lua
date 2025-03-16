@@ -19,7 +19,7 @@ local lsp_langs = {
 	"sqlls",
 	"svelte",
 	"tailwindcss",
-	"tsserver",
+	"ts_ls",
 	"yamlls",
 }
 
@@ -41,7 +41,7 @@ local lsp_formatters_linters_debuggers = {
 	"bash-debug-adapter", --Bash
 	"chrome-debug-adapter", --JS, TS with chrome
 	"debugpy", --python
-	"delve", --Go debugger
+	--"delve", --Go debugger
 	--"js-debug-adapter", -- VSCode debugger for JS and TS
 	"php-debug-adapter", --PHP
 }

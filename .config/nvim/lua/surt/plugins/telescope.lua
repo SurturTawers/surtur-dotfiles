@@ -35,6 +35,27 @@ return {
 						}),
 					},
 				},
+				pickers = {
+					live_grep = {
+						file_ignore_patterns = {
+							".git",
+							"node_modules",
+							"dist",
+						},
+						additional_args = function(_)
+							return { "--hidden" }
+						end,
+					},
+					find_files = {
+						hidden = true,
+						file_ignore_patterns = {
+							".git",
+							"node_modules",
+							"dist",
+							"package-lock.json",
+						},
+					},
+				},
 			})
 			require("telescope").load_extension("ui-select")
 			require("telescope").load_extension("fzf")

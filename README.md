@@ -5,11 +5,10 @@
 ```bash
 sudo apt install stow
 #COMMANDS
-stow <dirToSymlink> # This will symlink to aprent directory
+stow <dirToSymlink> # This will symlink to parent directory
 stow . # Will symlink current dir to ../
 
 stow <dirToSymlink> -t <targetDir> # This will Symlink to targetDir
-
 ```
 
 ## .zshrc
@@ -32,10 +31,11 @@ oh-my-posh config export --output ~/<yourCustomTheme>
 ## .tmux.conf
 
 - [tmux](https://github.com/tmux/tmux/wiki/Installing)
-- tpm
+- [tpm](https://github.com/tmux-plugins/tpm)
 
 ```bash
 sudo apt install tmux
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 tmux attach
 ```
 
