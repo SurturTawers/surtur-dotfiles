@@ -1,65 +1,72 @@
---[[
-return {
-  {
-    "neovim/nvim-lspconfig",
-    config = function()
-      vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
-      vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
-      vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {desc = "[C]ode [A]ctions"})
-      --  This function gets run when an LSP attaches to a particular buffer.
-      --    That is to say, every time a new file is opened that is associated with
-      --    an lsp (for example, opening `main.rs` is associated with `rust_analyzer`) this
-      --    function will be executed to configure the current buffer
-      vim.api.nvim_create_autocmd('LspAttach', {
-        group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
-        callback = function(event)
-
-          local client = vim.lsp.get_client_by_id(event.data.client_id)
-          if client and client.server_capabilities.documentHighlightProvider then
-            vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-              buffer = event.buf,
-              callback = vim.lsp.buf.document_highlight,
-            })
-
-            vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
-              buffer = event.buf,
-              callback = vim.lsp.buf.clear_references,
-            })
-          end
-        end
-      })
-
-      local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
-      local lspconfig = require("lspconfig")
-      lspconfig.lua_ls.setup({ capabilities = capabilities })
-      -- lspconfig.stylua.setup({ capabilities = capabilities })
-      lspconfig.phpactor.setup({ capabilities = capabilities })
-      lspconfig.html.setup({ capabilities = capabilities })
-      lspconfig.marksman.setup({ capabilities = capabilities })
-      lspconfig.cssls.setup({ capabilities = capabilities })
-      lspconfig.dockerls.setup({ capabilities = capabilities })
-      lspconfig.yamlls.setup({ capabilities = capabilities })
-      lspconfig.jsonls.setup({ capabilities = capabilities })
-      lspconfig.tsserver.setup({ capabilities = capabilities })
-      lspconfig.jedi_language_server.setup({capabilities = capabilities})
-    end
-  }
-
+local lsp_langs = {
+	"bashls",
+	"clangd",
+	"cssls",
+	"cssmodules_ls",
+	"css_variables",
+	"docker_compose_language_service",
+	"dockerls",
+	"eslint",
+	"html",
+	"intelephense",
+	"jedi_language_server",
+	"jsonls",
+	"lua_ls",
+	"marksman",
+	"pest_ls",
+	"phpactor",
+	"pyright",
+	"sqlls",
+	"svelte",
+	"tailwindcss",
+	"ts_ls",
+	"yamlls",
 }
-]]
---
+
+local lsp_formatters_linters_debuggers = {
+	--formatters
+	"prettier", --Angular, JS, TS, CSS, FLow, GraphQL, JSON, HTML, JSX, MD, SCSS, VUUE, YAML
+	"stylua", -- Lua, Luau
+	"isort", -- Python, sorts imports alphabetically
+	"black", -- Python
+	"blade-formatter", --Laravel Blade
+	--linters
+	"pylint", --Python
+	"eslint_d", -- TS, JS
+	"markdownlint", -- MD
+	"yamllint", --yaml
+	"jsonlint", --JSON
+	"quick_lint_js", --JS, TS "Faster" than eslint
+	--debuggers
+	"bash-debug-adapter", --Bash
+	"chrome-debug-adapter", --JS, TS with chrome
+	"debugpy", --python
+	--"delve", --Go debugger
+	--"js-debug-adapter", -- VSCode debugger for JS and TS
+	"php-debug-adapter", --PHP
+}
+
 return {
 	"neovim/nvim-lspconfig",
 	event = { "BufReadPre", "BufNewFile" },
 	dependencies = {
+		"mason-org/mason.nvim",
+		"mason-org/mason-lspconfig.nvim",
+		"WhoIsSethDaniel/mason-tool-installer.nvim",
 		"hrsh7th/cmp-nvim-lsp",
 		{ "antosha417/nvim-lsp-file-operations", config = true },
 		{ "folke/neodev.nvim", opts = {} },
 	},
 	config = function()
+		require("mason-lspconfig").setup({
+			ensure_installed = lsp_langs,
+			automatic_enable = lsp_langs,
+		})
+		require("mason-tool-installer").setup({
+			ensure_installed = lsp_formatters_linters_debuggers,
+		})
+
 		local lspconfig = require("lspconfig")
-		local mason_lspconfig = require("mason-lspconfig")
 		local cmp_nvim_lsp = require("cmp_nvim_lsp")
 		local keymap = vim.keymap
 
@@ -110,7 +117,6 @@ return {
 			end,
 		})
 
-		local capabilities = cmp_nvim_lsp.default_capabilities()
 		-- Change the Diagnostic symbols in the sign column (gutter)
 		-- (not in youtube nvim video)
 		local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
@@ -118,86 +124,5 @@ return {
 			local hl = "DiagnosticSign" .. type
 			vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 		end
-
-		mason_lspconfig.setup_handlers({
-			function(server_name)
-				lspconfig[server_name].setup({
-					capabilities = capabilities,
-				})
-			end,
-			--[[ 
-      ["svelte"] = function()
-        -- configure svelte server
-        lspconfig["svelte"].setup({
-          capabilities = capabilities,
-          on_attach = function(client, bufnr)
-            vim.api.nvim_create_autocmd("BufWritePost", {
-              pattern = { "*.js", "*.ts" },
-              callback = function(ctx)
-                -- Here use ctx.match instead of ctx.file
-                client.notify("$/onDidChangeTsOrJsFile", { uri = ctx.match })
-              end,
-            })
-          end,
-        })
-      end,
-      ["emmet_ls"] = function()
-        -- configure emmet language server
-        lspconfig["emmet_ls"].setup({
-          capabilities = capabilities,
-          filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "svelte" },
-        })
-      end,
-      --]]
-			--[[ ["dartls"] = function()
-				lspconfig["dartls"].setup({
-					capabilities = capabilities,
-					cmd = { "dart", "language-server", "--protocol=lsp" },
-					filetypes = { "dart" },
-					init_options = {
-						closingLabels = true,
-						flutterOutline = true,
-						onlyAnalyzeProjectsWithOpenFiles = true,
-						outline = true,
-						suggestFromUnimportedLibraries = true,
-					},
-				})
-			end,
-      --]]
-			["lua_ls"] = function()
-				-- configure lua server (with special settings)
-				lspconfig["lua_ls"].setup({
-					capabilities = capabilities,
-					settings = {
-						Lua = {
-							-- make the language server recognize "vim" global
-							diagnostics = {
-								globals = { "vim" },
-							},
-							completion = {
-								callSnippet = "Replace",
-							},
-						},
-					},
-				})
-			end,
-			["html"] = function()
-				lspconfig["html"].setup({
-					capabilities = capabilities,
-					filetypes = {
-						"html",
-						"php",
-					},
-				})
-			end,
-			["phpactor"] = function()
-				lspconfig["phpactor"].setup({
-					capabilities = capabilities,
-					filetypes = {
-						"php",
-					},
-				})
-			end,
-		})
 	end,
 }
