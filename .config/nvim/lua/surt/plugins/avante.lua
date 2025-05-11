@@ -1,34 +1,69 @@
-return {
-	"yetone/avante.nvim",
-	event = "VeryLazy",
-	version = false, -- Never set this value to "*"! Never!
-	opts = {
-		-- add any opts here
-		-- for example
+local ollama_models = {
+	["qwen3"] = {
+		-- Qwen3: General coding and math
+		["8b"] = "qwen3:8b", -- Too large for my pc, takes forever to generate a response
+		["4b"] = "qwen3:4b", -- Reasonable time, it uses some resources
+		["1.7b"] = "qwen3:1.7b", -- Really fast, maybe not so accurate, test
+		["0.6b"] = "qwen3:0.6b", -- Fastest one, not so accurate, maybe
+	},
+	-- Qwen2.5-coder: Code specific LLM
+	["qwen2.5-coder"] = {
+		["3b"] = "qwen2.5-coder:3b",
+		["1.5b"] = "qwen2.5-coder:1.5b",
+		["0.5b"] = "qwen2.5-coder:0.5b",
+	},
+}
+
+local openai_models = {
+	["gpt-o4"] = {
+		mini = "gpt-o4-mini",
+	},
+	["gpt-o3"] = {
+		mini = "gpt-o3-mini",
+	},
+}
+
+local configs = {
+	copilot = {
 		behaviour = {
+			-- THIS FIXES THE ERROR OF NOT FINDING THE FILE USING THE CWD AS ROOT
 			use_cwd_as_project_root = true,
 		},
 		provider = "copilot",
-		--[[ ] ]--
-		provider = "ollama",
-		ollama = {
-			--model = "qwq:32b",
-			model = "qwen3",
+	},
+	chatgpt = {
+		behaviour = {
+			-- THIS FIXES THE ERROR OF NOT FINDING THE FILE USING THE CWD AS ROOT
+			use_cwd_as_project_root = true,
 		},
-		--[[ ]]
-		--
-		--[[ ] ]--
 		provider = "openai",
-    openai = {
+		openai = {
 			endpoint = "https://api.openai.com/v1",
-			model = "gpt-4o", -- your desired model (or use gpt-4o, etc.)
+			model = openai_models["gpt-o4"].mini,
 			timeout = 30000, -- Timeout in milliseconds, increase this for reasoning models
 			temperature = 0,
 			max_completion_tokens = 8192, -- Increase this to include reasoning tokens (for reasoning models)
 			--reasoning_effort = "medium", -- low|medium|high, only used for reasoning models
 		},
-    --[[]]
 	},
+	ollama = {
+		behaviour = {
+			-- THIS FIXES THE ERROR OF NOT FINDING THE FILE USING THE CWD AS ROOT
+			use_cwd_as_project_root = true,
+			enable_cursor_planning_mode = true,
+		},
+		provider = "ollama",
+		ollama = {
+			model = ollama_models["qwen2.5-coder"]["1.5b"],
+		},
+	},
+}
+
+return {
+	"yetone/avante.nvim",
+	event = "VeryLazy",
+	version = false, -- Never set this value to "*"! Never!
+	opts = configs.ollama,
 	-- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
 	build = "make",
 	-- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
