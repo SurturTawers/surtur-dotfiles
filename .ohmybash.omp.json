@@ -28,7 +28,7 @@
             "revert_icon": "\uf0e2 ",
             "tag_icon": "\uf412 "
           },
-          "template": "{{ .UpstreamIcon }}{{ .User.Name }} {{ .HEAD }} {{ .Working }} ",
+          "template": "{{ .UpstreamIcon }} {{ .User.Name }} {{ .HEAD }} {{ .Working }} ",
           "foreground": "#DBDBDB",
           "type": "git",
           "style": "plain"
