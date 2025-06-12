@@ -69,6 +69,25 @@ local colorschemes = {
 		lazy = false,
 		priority = 1000,
 		config = function()
+			require("nordic").setup({
+				after_palette = function(palette)
+					local U = require("nordic.utils")
+					palette.bg_visual = U.blend(palette.orange.base, palette.bg, 0.35)
+				end,
+				on_highlight = function(highlights, palette)
+					local U = require("nordic.utils")
+					highlights.TelescopePreviewLine = {
+						bg = U.blend(palette.orange.base, palette.bg, 0.35),
+						sp = palette.yellow.dim,
+						undercurl = false,
+					}
+				end,
+				bold_keywords = true,
+				italic_comments = true,
+				cursorline = {
+					blend = 0.9,
+				},
+			})
 			require("nordic").load()
 			vim.cmd.colorscheme("nordic")
 		end,
@@ -157,4 +176,4 @@ local colorschemes = {
 	},
 }
 
-return colorschemes["everforest"]
+return colorschemes["nordic"]

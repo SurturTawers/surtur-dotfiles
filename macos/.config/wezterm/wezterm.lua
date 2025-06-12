@@ -21,6 +21,6 @@ config.window_padding = {
 
 config.text_background_opacity = 0.5
 config.font = wezterm.font("JetBrains Mono")
-config.font_size = 12.0
+config.font_size = 12
 
 return config
