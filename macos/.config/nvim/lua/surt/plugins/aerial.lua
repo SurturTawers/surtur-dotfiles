@@ -25,6 +25,6 @@ return {
 			},
 		})
 		-- You probably also want to set a keymap to toggle aerial
-		vim.keymap.set("n", "<leader>at", "<cmd>AerialToggle!<CR>")
+		vim.keymap.set("n", "<leader>aet", "<cmd>AerialToggle!<CR>")
 	end,
 }
