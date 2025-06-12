@@ -60,14 +60,14 @@ return {
 			type = "executable",
 			command = "node",
 			args = {
-				"/home/surt/programming/daps/local-lua-debugger-vscode/extension/debugAdapter.js",
+				daps_path .. "local-lua-debugger-vscode/extension/debugAdapter.js",
 			},
 			enrich_config = function(config, on_config)
 				if not config["extensionPath"] then
 					local c = vim.deepcopy(config)
 					-- 💀 If this is missing or wrong you'll see
 					-- "module 'lldebugger' not found" errors in the dap-repl when trying to launch a debug session
-					c.extensionPath = "/home/surt/programming/daps/local-lua-debugger-vscode/"
+					c.extensionPath = daps_path .. "local-lua-debugger-vscode/"
 					on_config(c)
 				else
 					on_config(config)
@@ -97,7 +97,7 @@ return {
 			executable = {
 				command = "node",
 				-- 💀 Make sure to update this path to point to your installation
-				args = { "/home/surt/programming/daps/js-debug/src/dapDebugServer.js", "8123" },
+				args = { daps_path .. "js-debug/src/dapDebugServer.js", "8123" },
 			},
 		}
 		require("dap").configurations.javascript = {
@@ -115,7 +115,7 @@ return {
 		dap.adapters.php = {
 			type = "executable",
 			command = "node",
-			args = { "/home/surt/programming/daps/vscode-php-debug/out/phpDebug.js" },
+			args = { daps_path .. "vscode-php-debug/out/phpDebug.js" },
 		}
 
 		dap.configurations.php = {
