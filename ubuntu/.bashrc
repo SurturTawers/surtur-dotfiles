@@ -123,7 +123,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 export PATH=$PATH:/home/surt/.spicetify
-# . "$HOME/.cargo/env"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
@@ -148,3 +147,6 @@ eval "$(oh-my-posh init bash --config ~/.ohmybash.omp.json)"
 
 # Load Angular CLI autocompletion.
 source <(ng completion script)
+export OPENAI_API_KEY="$(cat ~/.openapitoken)";
+export GEMINI_API_KEY="$(cat ~/.geminiapitoken)";
+. "$HOME/.cargo/env"
