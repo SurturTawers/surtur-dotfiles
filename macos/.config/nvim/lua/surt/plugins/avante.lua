@@ -23,6 +23,14 @@ local openai_models = {
 	},
 }
 
+local gemini_models = {
+	["gemini-2.5"] = {
+		pro = "gemini-2.5-pro",
+		flash = "gemini-2.5-flash",
+		["flash-lite"] = "gemini-2.5-flash-lite",
+	},
+}
+
 local configs = {
 	copilot = {
 		behaviour = {
@@ -57,13 +65,30 @@ local configs = {
 			model = ollama_models["qwen2.5-coder"]["1.5b"],
 		},
 	},
+	google = {
+		provider = "gemini", -- Recommend using Claude
+		behaviour = {
+			use_cwd_as_project_root = true,
+			auto_suggestions = false, -- Experimental stage
+			auto_set_highlight_group = true,
+			auto_set_keymaps = true,
+			auto_apply_diff_after_generation = false,
+			support_paste_from_clipboard = false,
+		},
+		gemini = {
+			-- @see https://ai.google.dev/gemini-api/docs/models/gemini
+			model = gemini_models["gemini-2.5"].flash,
+			temperature = 0,
+			max_tokens = 4096,
+		},
+	},
 }
 
 return {
 	"yetone/avante.nvim",
 	event = "VeryLazy",
 	version = false, -- Never set this value to "*"! Never!
-	opts = configs.copilot,
+	opts = configs.google,
 	-- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
 	build = "make",
 	-- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
