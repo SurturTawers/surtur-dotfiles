@@ -31,6 +31,7 @@ local gemini_models = {
 	},
 }
 
+--[[ 
 local configs = {
 	copilot = {
 		behaviour = {
@@ -84,12 +85,57 @@ local configs = {
 		},
 	},
 }
+--]]
+
+local providers = {
+	gemini = {
+		model = gemini_models["gemini-2.5"].flash,
+		extra_request_body = {
+			generationConfig = {
+				temperature = 0.75,
+			},
+		},
+	},
+	copilot = {
+		model = "gpt-4o-2024-11-20",
+	},
+	openai = {
+		model = openai_models["gpt-o4"].mini,
+		extra_request_body = {
+			temperature = 0.75,
+			max_completion_tokens = 16384, -- Increase this to include reasoning tokens (for reasoning models). For Response API, will be converted to max_output_tokens
+			reasoning_effort = "medium", -- low|medium|high, only used for reasoning models. For Response API, this will be converted to reasoning.effort
+		},
+	},
+	ollama = {
+		model = ollama_models["qwen2.5-coder"]["1.5b"],
+		extra_request_body = {
+			options = {
+				temperature = 0.15,
+				num_ctx = 20480,
+				keep_alive = "5m",
+			},
+		},
+	},
+}
+
+local avante_config = {
+	behaviour = {
+		use_cwd_as_project_root = true,
+		auto_suggestions = false, -- Experimental stage
+		auto_set_highlight_group = true,
+		auto_set_keymaps = true,
+		auto_apply_diff_after_generation = false,
+		support_paste_from_clipboard = false,
+	},
+	providers = providers,
+}
 
 return {
 	"yetone/avante.nvim",
 	event = "VeryLazy",
 	version = false, -- Never set this value to "*"! Never!
-	opts = configs.google,
+	opts = avante_config,
 	-- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
 	build = "make",
 	-- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
