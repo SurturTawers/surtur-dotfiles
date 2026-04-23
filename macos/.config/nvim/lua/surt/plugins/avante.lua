@@ -75,11 +75,13 @@ local configs = {
 			auto_apply_diff_after_generation = false,
 			support_paste_from_clipboard = false,
 		},
-		gemini = {
-			-- @see https://ai.google.dev/gemini-api/docs/models/gemini
-			model = gemini_models["gemini-2.5"].flash,
-			temperature = 0,
-			max_tokens = 4096,
+		providers = {
+			gemini = {
+				-- @see https://ai.google.dev/gemini-api/docs/models/gemini
+				model = gemini_models["gemini-2.5"].flash,
+				temperature = 0,
+				max_tokens = 4096,
+			},
 		},
 	},
 }

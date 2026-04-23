@@ -24,18 +24,23 @@ local ts_languages = {
 }
 
 return {
-	"nvim-treesitter/nvim-treesitter",
-	event = { "BufReadPre", "BufNewFile" },
-	build = ":TSUpdate",
-	dependencies = {
-		"windwp/nvim-ts-autotag",
-	},
-	config = function()
-		local treesitter = require("nvim-treesitter.configs")
-		treesitter.setup({
-			highlight = { enable = true },
-			indent = { enable = true },
-			ensure_installed = ts_languages,
-		})
-	end,
+    "nvim-treesitter/nvim-treesitter",
+    -- version = "v0.9.2", -- REMOVED: using main branch
+    event = { "BufReadPre", "BufNewFile" },
+    build = ":TSUpdate",
+    dependencies = {
+        "windwp/nvim-ts-autotag",
+    },
+    config = function()
+        -- 1. Manage parsers
+        local ts = require("nvim-treesitter")
+        -- Note: v1.0.0 handles ensure_installed differently, 
+        -- often via the install module or auto-install.
+        
+        -- 2. Setup Autotag (now setup independently)
+        require('nvim-ts-autotag').setup()
+
+        -- 3. Highlighting is handled by Neovim core automatically 
+        -- for any buffer where a parser is available.
+    end,
 }
