@@ -39,10 +39,9 @@ local lsp_formatters_linters_debuggers = {
 	"quick-lint-js", --JS, TS "Faster" than eslint
 	--debuggers
 	"bash-debug-adapter", --Bash
-	"chrome-debug-adapter", --JS, TS with chrome
+	"js-debug-adapter", --JS, TS with chrome/node
 	"debugpy", --python
 	--"delve", --Go debugger
-	--"js-debug-adapter", -- VSCode debugger for JS and TS
 	"php-debug-adapter", --PHP
 }
 

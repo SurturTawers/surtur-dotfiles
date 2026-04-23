@@ -35,7 +35,7 @@ local colorschemes = {
 				keywordStyle = { italic = true },
 				dimInactive = true,
 			})
-			vim.cmd.colorscheme("dragon")
+			vim.cmd.colorscheme("kanagawa-wave")
 		end,
 	},
 	-- KANAGAWA PAPER
@@ -171,7 +171,7 @@ local colorschemes = {
 					},
 				},
 			})
-			vim.cmd.colorscheme("terafox")
+			vim.cmd.colorscheme("nightfox")
 		end,
 	},
 }
