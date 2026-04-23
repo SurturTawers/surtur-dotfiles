@@ -1,64 +1,46 @@
 return {
-	--[[
-  {
-    "nvim-telescope/telescope-fzf-native.nvim",
-    build =
-    "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
-  },
-  ]]
-	--
-	{
-		"nvim-telescope/telescope.nvim",
-		tag = "0.1.6",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-			"nvim-tree/nvim-web-devicons",
-			"folke/todo-comments.nvim",
-		},
-		config = function()
-			local builtin = require("telescope.builtin")
-			local kmp = vim.keymap
-			kmp.set("n", "<leader>fs", builtin.find_files, { desc = "[F]ile [S]earch in parent directory" })
-			kmp.set("n", "<leader>fg", builtin.live_grep, { desc = "[F]ile [G]rep in parent directory" })
-			kmp.set("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" })
-		end,
-	},
-	{
+	"nvim-telescope/telescope.nvim",
+	branch = "0.1.x",
+	dependencies = {
+		"nvim-lua/plenary.nvim",
+		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+		"nvim-tree/nvim-web-devicons",
 		"nvim-telescope/telescope-ui-select.nvim",
-		config = function()
-			require("telescope").setup({
-				extensions = {
-					["ui-select"] = {
-						require("telescope.themes").get_dropdown({
-							-- even more opts
-						}),
-					},
-				},
-				pickers = {
-					live_grep = {
-						file_ignore_patterns = {
-							"**/.git/**",
-							"node_modules",
-							"dist",
-						},
-						additional_args = function(_)
-							return { "--hidden" }
-						end,
-					},
-					find_files = {
-						hidden = true,
-						file_ignore_patterns = {
-							"**/.git/**",
-							"node_modules",
-							"dist",
-							"package-lock.json",
-						},
-					},
-				},
-			})
-			require("telescope").load_extension("ui-select")
-			require("telescope").load_extension("fzf")
-		end,
 	},
+	config = function()
+		local telescope = require("telescope")
+		local actions = require("telescope.actions")
+
+		telescope.setup({
+			defaults = {
+				path_display = { "truncate " },
+				mappings = {
+					i = {
+						["<C-k>"] = actions.move_selection_previous, -- move to prev result
+						["<C-j>"] = actions.move_selection_next, -- move to next result
+						["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
+					},
+				},
+			},
+			extensions = {
+				["ui-select"] = {
+					require("telescope.themes").get_dropdown(),
+				},
+			},
+		})
+
+		telescope.load_extension("fzf")
+		telescope.load_extension("ui-select")
+
+		-- set keymaps
+		local keymap = vim.keymap
+		local builtin = require("telescope.builtin")
+
+		keymap.set("n", "<leader>fs", builtin.find_files, { desc = "Fuzzy find files in cwd" })
+		keymap.set("n", "<leader>fr", builtin.oldfiles, { desc = "Fuzzy find recent files" })
+		keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Find string in cwd" })
+		keymap.set("n", "<leader>fc", builtin.grep_string, { desc = "Find string under cursor in cwd" })
+		keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<cr>", { desc = "Find todos" })
+		keymap.set("n", "<leader><leader>", builtin.buffers, { desc = "Find open buffers" })
+	end,
 }
