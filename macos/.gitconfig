@@ -2,8 +2,12 @@
 [user]
 	name = DavidTorres-kastor
   email = david.torres@kastor.cl
+[credential]
+	username=DavidTorres-kastor
+	helper="!f() { test \"$1\" = get && echo \"password=$(cat ~/.tokendtkastor)\"; }; f"
 [core]
   editor = nvim
+	pager = less
 [filter "lfs"]
   smudge = git-lfs smudge -- %f
   process = git-lfs filter-process

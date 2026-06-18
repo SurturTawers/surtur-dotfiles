@@ -30,6 +30,7 @@ local lsp_formatters_linters_debuggers = {
 	"isort", -- Python, sorts imports alphabetically
 	"black", -- Python
 	"blade-formatter", --Laravel Blade
+	"php-cs-fixer", --PHP
 	--linters
 	"pylint", --Python
 	"eslint_d", -- TS, JS

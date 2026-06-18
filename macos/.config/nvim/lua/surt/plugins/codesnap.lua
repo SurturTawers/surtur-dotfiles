@@ -1,16 +1,19 @@
 return {
 	"mistricky/codesnap.nvim",
 	build = "make",
-	cmd = "CodeSnapPreviewOn",
+	version = "*",
+	cmd = { "CodeSnap", "CodeSnapSave", "CodeSnapASCII", "CodeSnapHighlight", "CodeSnapSaveHighlight" },
 	keys = {
-		{ "<leader>csh", ":'<,'>CodeSnapSaveHighlight<CR>", mode = "x", desc = "Save selected code as image" },
+		{ "<leader>cc", "<cmd>CodeSnap<cr>", mode = "x", desc = "Copy code snapshot to clipboard" },
+		{ "<leader>cs", "<cmd>CodeSnapSave<cr>", mode = "x", desc = "Save code snapshot to file" },
 	},
-	config = function()
-		require("codesnap").setup({
-			mac_window_bar = false,
-			save_path = "~/Documents/code_screenshots",
-			bg_theme = "grape",
-			watermark = "",
-		})
-	end,
+	opts = {
+		mac_window_bar = true,
+		title = "CodeSnap.nvim",
+		watermark = "",
+		bg_theme = "grape",
+		save_path = "/Users/david/Documents/code_screenshots",
+		has_line_number = true,
+		has_border = true,
+	},
 }

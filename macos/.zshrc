@@ -1,7 +1,7 @@
-export PATH="/opt/homebrew/opt/php@7.4/bin:$PATH"
-export PATH="/opt/homebrew/opt/php@7.4/sbin:$PATH"
-#export PATH="/opt/homebrew/opt/php/bin:$PATH"
-#export PATH="/opt/homebrew/opt/php/sbin:$PATH"
+#export PATH="/opt/homebrew/opt/php@7.4/bin:$PATH"
+#export PATH="/opt/homebrew/opt/php@7.4/sbin:$PATH"
+export PATH="/opt/homebrew/opt/php/bin:$PATH"
+export PATH="/opt/homebrew/opt/php/sbin:$PATH"
 autoload -Uz compinit && compinit
 
 #EXPORT THE SERVER IP VARIABLES AND USE IT ON ALIASES
@@ -13,6 +13,8 @@ done < "$input"
 
 alias ck2="ssh -i ~/.ssh/k2keydt dtorres@${K2_IP}"
 alias cfenix="ssh dtorres@${FENIX_IP}"
+alias ckastorvpn="wg-quick up david-client"
+alias dckastorvpn="wg-quick down david-client"
 
 alias csisyphus_dev_ec2="ssh -i ~/.ssh/sisyphus-dev-masterkey.pem ec2-user@${SISYPHUS_DEV_IP}"
 alias csisyphus_dev_dtorres="ssh -i ~/.ssh/sisyphus-dev-dtorreskey.pem dtorres@${SISYPHUS_DEV_IP}"
@@ -27,3 +29,16 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 
 export OPENAI_API_KEY="$(cat ~/.openapitoken)";
 export GEMINI_API_KEY="$(cat ~/.geminiapitoken)";
+
+# Added by Antigravity
+export PATH="/Users/david/.antigravity/antigravity/bin:$PATH"
+
+# Added by Antigravity IDE
+export PATH="/Users/david/.antigravity-ide/antigravity-ide/bin:$PATH"
+
+
+# Added by Antigravity CLI installer
+export PATH="/Users/david/.local/bin:$PATH"
+
+# opencode
+export PATH=/Users/david/.opencode/bin:$PATH

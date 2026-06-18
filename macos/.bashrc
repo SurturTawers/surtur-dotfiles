@@ -148,3 +148,7 @@ eval "$(oh-my-posh init bash --config ~/.ohmybash.omp.json)"
 
 # Load Angular CLI autocompletion.
 source <(ng completion script)
+
+
+# Added by Antigravity CLI installer
+export PATH="/Users/david/.local/bin:$PATH"
