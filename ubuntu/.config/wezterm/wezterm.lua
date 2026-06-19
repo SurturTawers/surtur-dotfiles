@@ -23,4 +23,13 @@ config.text_background_opacity = 0.5
 config.font = wezterm.font("JetBrains Mono")
 config.font_size = 9.0
 
+config.keys = {
+	{
+		key = "Enter",
+		mods = "SHIFT",
+		action = wezterm.action.SendString("\x0a"),
+	},
+}
+
 return config
+

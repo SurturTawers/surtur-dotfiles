@@ -1,0 +1,24 @@
+[
+  {
+    "context": "Editor && vim_mode == normal && !VimWaiting",
+    "bindings": {
+      "space": null,
+      "space q": "workspace::ToggleLeftDock",
+      "space s v": "pane::SplitRight",
+      "space s h": "pane::SplitDown",
+      "space s q": "pane::CloseActiveItem",
+      "space t o": "workspace::NewFile",
+      "space t q": "pane::CloseActiveItem",
+      "space t n": "pane::ActivateNextItem",
+      "space t p": "pane::ActivatePrevItem",
+      "space f s": "file_finder::Toggle",
+      "space f r": "file_finder::Toggle",
+      "space f g": "pane::DeploySearch",
+      "space f c": "pane::DeploySearch",
+      "space f t": "pane::DeploySearch",
+      "space space": "tab_switcher::Toggle",
+      "ctrl-d": "vim::ScrollDown",
+      "ctrl-u": "vim::ScrollUp"
+    }
+  }
+]
