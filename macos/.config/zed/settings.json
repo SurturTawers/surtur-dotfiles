@@ -1,11 +1,31 @@
 {
+  "agent": {
+    "sidebar_side": "right",
+    "dock": "right",
+    "favorite_models": [],
+    "model_parameters": []
+  },
+  "agent_servers": {
+    "qwen-code": {
+      "type": "registry"
+    },
+    "opencode": {
+      "type": "registry"
+    },
+    "claude-acp": {
+      "type": "registry"
+    },
+    "codex-acp": {
+      "type": "registry"
+    }
+  },
   "vim_mode": true,
   "tab_size": 2,
   "line_numbers": "absolute",
   "cursor_line": "active",
-  "icon_theme": "Zed (Default)",
+  "icon_theme": "Material Icon Theme",
   "ui_font_size": 14,
-  "buffer_font_size": 14,
+  "buffer_font_size": 12,
   "buffer_font_family": "JetBrainsMono Nerd Font",
   "theme": "Duskfox - blurred",
   "features": {
