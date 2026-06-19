@@ -1,26 +1,26 @@
 {
-  "cli_default_open_behavior": "existing_window",
   "vim_mode": true,
   "tab_size": 2,
   "line_numbers": "absolute",
   "cursor_line": "active",
-  "icon_theme": {
-    "mode": "light",
-    "light": "Zed (Default)",
-    "dark": "Zed (Default)"
-  },
-  "ui_font_size": 14.0,
-  "buffer_font_size": 12.0,
+  "icon_theme": "Zed (Default)",
+  "ui_font_size": 14,
+  "buffer_font_size": 14,
   "buffer_font_family": "JetBrainsMono Nerd Font",
-  "theme": {
-    "mode": "system",
-    "light": "One Light",
-    "dark": "Duskfox - blurred"
-  },
+  "theme": "Duskfox - blurred",
   "features": {
     "copilot": true
   },
   "terminal": {
     "font_family": "JetBrainsMono Nerd Font"
+  },
+  "project_panel": {
+    "dock": "left"
+  },
+  "outline_panel": {
+    "dock": "left"
+  },
+  "git_panel": {
+    "dock": "left"
   }
 }
