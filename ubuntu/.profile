@@ -32,3 +32,7 @@ export PATH="$PATH:/home/surt/.local/share/JetBrains/Toolbox/scripts"
 
 
 . "$HOME/.cargo/env"
+
+
+# Added by Antigravity CLI installer
+export PATH="/home/surt/.local/bin:$PATH"

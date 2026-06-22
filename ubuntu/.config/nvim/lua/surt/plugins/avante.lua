@@ -89,7 +89,7 @@ local configs = {
 
 local providers = {
 	gemini = {
-		model = gemini_models["gemini-2.5"].flash,
+		model = gemini_models["gemini-2.5"].pro,
 		extra_request_body = {
 			generationConfig = {
 				temperature = 0.75,

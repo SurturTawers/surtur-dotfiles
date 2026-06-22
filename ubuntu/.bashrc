@@ -150,3 +150,10 @@ source <(ng completion script)
 export OPENAI_API_KEY="$(cat ~/.openapitoken)";
 export GEMINI_API_KEY="$(cat ~/.geminiapitoken)";
 . "$HOME/.cargo/env"
+
+
+# Added by Antigravity CLI installer
+export PATH="/home/surt/.local/bin:$PATH"
+
+# opencode
+export PATH=/home/surt/.opencode/bin:$PATH
