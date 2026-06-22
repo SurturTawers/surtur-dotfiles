@@ -23,9 +23,10 @@ return {
 				auto_open_browser = true, -- Automatically opens devtools in the browser
 			},
 			lsp = {
-				color = { -- show the derived colours for dart variables
-					enabled = true, -- whether or not to highlight color variables at all, only supported on flutter >= 2.10
-				},
+				on_attach = function(client, bufnr)
+					-- Enable document colors for Neovim 0.12+
+					vim.lsp.document_color.enable(bufnr)
+				end,
 				cmd = { "dart", "language-server", "--protocol=lsp" },
 			},
 		})

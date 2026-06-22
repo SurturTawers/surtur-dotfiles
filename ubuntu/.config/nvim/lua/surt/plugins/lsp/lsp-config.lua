@@ -60,7 +60,7 @@ return {
 	config = function()
 		require("mason-lspconfig").setup({
 			ensure_installed = lsp_langs,
-			automatic_enable = lsp_langs,
+			automatic_installation = true,
 		})
 		require("mason-tool-installer").setup({
 			ensure_installed = lsp_formatters_linters_debuggers,
@@ -69,6 +69,16 @@ return {
 		local lspconfig = require("lspconfig")
 		local cmp_nvim_lsp = require("cmp_nvim_lsp")
 		local keymap = vim.keymap
+
+		-- Actually set up the LSPs with lspconfig
+		local capabilities = cmp_nvim_lsp.default_capabilities()
+		require("mason-lspconfig").setup_handlers({
+			function(server_name)
+				lspconfig[server_name].setup({
+					capabilities = capabilities,
+				})
+			end,
+		})
 
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("UserLspConfig", {}),

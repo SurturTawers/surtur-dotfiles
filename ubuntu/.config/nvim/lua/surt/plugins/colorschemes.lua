@@ -157,4 +157,4 @@ local colorschemes = {
 	},
 }
 
-return colorschemes["everforest"]
+return colorschemes["nightfox"]
