@@ -1,7 +1,31 @@
 {
+  "title_bar": {
+    "show_branch_status_icon": false
+  },
+  "tabs": {
+    "git_status": true
+  },
+  "remove_trailing_whitespace_on_save": false,
+  "indent_guides": {
+    "line_width": 1,
+    "coloring": "fixed",
+    "background_coloring": "disabled"
+  },
+  "soft_wrap": "editor_width",
+  "scrollbar": {
+    "show": "auto",
+    "axes": {
+      "horizontal": true
+    }
+  },
+  "horizontal_scroll_margin": 5.0,
+  "format_on_save": "off",
+  "which_key": {
+    "enabled": true
+  },
   "diff_view_style": "split",
   "agent": {
-    "sidebar_side": "right",
+    "sidebar_side": "left",
     "dock": "right",
     "favorite_models": [],
     "model_parameters": []
@@ -14,6 +38,10 @@
       "type": "registry"
     },
     "claude-acp": {
+      "default_config_options": {
+        "mode": "plan",
+        "model": "opus[1m]"
+      },
       "type": "registry"
     },
     "codex-acp": {
@@ -42,6 +70,9 @@
     "dock": "left"
   },
   "git_panel": {
+    "file_icons": true,
+    "sort_by_path": false,
+    "collapse_untracked_diff": false,
     "tree_view": true,
     "dock": "left"
   }
