@@ -53,7 +53,7 @@
   "line_numbers": "absolute",
   "cursor_line": "active",
   "icon_theme": "Material Icon Theme",
-  "ui_font_size": 14,
+  "ui_font_size": 14.0,
   "buffer_font_size": 12,
   "buffer_font_family": "JetBrainsMono Nerd Font",
   "theme": "Duskfox - blurred",
@@ -61,6 +61,7 @@
     "copilot": true
   },
   "terminal": {
+    "dock": "bottom",
     "font_family": "JetBrainsMono Nerd Font"
   },
   "project_panel": {
