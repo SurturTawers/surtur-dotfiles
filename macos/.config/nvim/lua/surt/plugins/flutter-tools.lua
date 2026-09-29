@@ -23,9 +23,7 @@ return {
 				auto_open_browser = true, -- Automatically opens devtools in the browser
 			},
 			lsp = {
-				color = { -- show the derived colours for dart variables
-					enabled = true, -- whether or not to highlight color variables at all, only supported on flutter >= 2.10
-				},
+				-- dart color highlighting: native in nvim 0.12 (vim.lsp.document_color, on by default)
 				cmd = { "dart", "language-server", "--protocol=lsp" },
 			},
 		})
