@@ -1,0 +1,23 @@
+# Ghostty config (ported from wezterm.lua)
+# Validate: ghostty +validate-config    Reload: cmd+shift+,
+
+# --- Look ---
+theme = Catppuccin Mocha
+font-family = JetBrainsMono Nerd Font Mono
+font-size = 12
+window-padding-x = 0
+window-padding-y = 0
+window-padding-balance = true
+# tmux handles tabs/splits; aerospace handles window placement
+macos-titlebar-style = hidden
+mouse-hide-while-typing = true
+
+# --- Keys ---
+# Same as wezterm: left option = Alt (tmux/nvim), right option still types symbols
+macos-option-as-alt = left
+# Newline in Claude Code (also works inside tmux)
+keybind = shift+enter=text:\n
+
+# --- Shell / ssh ---
+# Direct ssh (outside tmux) falls back to TERM=xterm-256color on servers without Ghostty's terminfo
+shell-integration-features = ssh-env

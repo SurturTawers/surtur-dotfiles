@@ -1,11 +1,20 @@
 {
   "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
   "palette": {
+    "rosewater": "#F5E0DC",
+    "pink": "#F5C2E7",
+    "mauve": "#CBA6F7",
+    "red": "#F38BA8",
+    "peach": "#FAB387",
+    "yellow": "#F9E2AF",
+    "green": "#A6E3A1",
+    "sapphire": "#74C7EC",
     "blue": "#89B4FA",
-    "closer": "p:os",
     "lavender": "#B4BEFE",
+    "text": "#CDD6F4",
+    "overlay1": "#7F849C",
     "os": "#ACB0BE",
-    "pink": "#F5C2E7"
+    "closer": "p:os"
   },
   "blocks": [
     {
@@ -29,7 +38,7 @@
             "tag_icon": "\uf412 "
           },
           "template": "{{ .UpstreamIcon }} {{ .User.Name }} {{ .HEAD }} {{ .Working.String }} ",
-          "foreground": "#DBDBDB",
+          "foreground": "p:lavender",
           "type": "git",
           "style": "plain"
         }
@@ -42,14 +51,14 @@
         {
           "type": "aws",
           "style": "plain",
-          "foreground": "#FF9900",
+          "foreground": "p:peach",
           "template": "AWS {{.Profile}}{{if .Region}}@{{.Region}}{{end}} "
         },
         {
           "type": "docker",
           "style": "plain",
-          "foreground": "#328EEF",
-          "template": " {{ .Context }} "
+          "foreground": "p:sapphire",
+          "template": "\uf308 {{ .Context }} "
         }
       ]
     },
@@ -66,42 +75,48 @@
             "style": "agnoster_short"
           },
           "template": "{{ .Path }} ",
-          "foreground": "#64A2FA",
+          "foreground": "p:pink",
           "type": "path",
           "style": "plain"
         },
         {
           "type": "angular",
           "style": "plain",
-          "foreground": "#E90364",
-          "template": " {{ .Full }} "
+          "foreground": "p:red",
+          "template": "\ue753 {{ .Full }} "
         },
         {
           "type": "php",
           "style": "plain",
-          "foreground": "#8789de",
-          "template": " {{ .Full }} "
+          "foreground": "p:mauve",
+          "template": "\ue73d {{ .Full }} "
         },
         {
           "type": "node",
           "style": "plain",
-          "foreground": "#6CA35E",
-          "template": " {{ .Full }} "
+          "foreground": "p:green",
+          "template": "\ue718 {{ .Full }} "
         },
         {
           "type": "os",
           "style": "plain",
-          "foreground": "#E75320",
+          "foreground": "p:os",
           "template": "{{.Icon}}  "
         },
         {
           "properties": {
             "cache_duration": "none"
           },
-          "template": "{{.UserName}}@{{.HostName}} \uf105",
-          "foreground": "p:closer",
+          "template": "{{.UserName}}@{{.HostName}} ",
+          "foreground": "p:blue",
           "type": "text",
           "style": "plain"
+        },
+        {
+          "type": "text",
+          "style": "plain",
+          "foreground": "p:closer",
+          "template": "\uf105"
         }
       ]
     }

@@ -176,4 +176,4 @@ local colorschemes = {
 	},
 }
 
-return colorschemes["nightfox"]
+return colorschemes["catppuccin"]
