@@ -87,7 +87,7 @@ local configs = {
 }
 
 return {
-	"yetone/avante.nvim",
+	"avante-corp/avante.nvim",
 	event = "VeryLazy",
 	version = false, -- Never set this value to "*"! Never!
 	opts = configs.google,
