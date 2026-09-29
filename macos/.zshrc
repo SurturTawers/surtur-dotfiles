@@ -13,6 +13,7 @@ done < "$input"
 
 alias ck2="ssh -i ~/.ssh/k2keydt dtorres@${K2_IP}"
 alias cfenix="ssh dtorres@${FENIX_IP}"
+alias cfenix85="ssh dtorres@${FENIX85_IP}"
 alias ckastorvpn="wg-quick up david-client"
 alias dckastorvpn="wg-quick down david-client"
 
@@ -21,6 +22,8 @@ alias csisyphus_dev_dtorres="ssh -i ~/.ssh/sisyphus-dev-dtorreskey.pem dtorres@$
 
 alias csisyphus_prod_ec2="ssh -i ~/.ssh/sisyphus-prod-masterkey.pem ec2-user@${SISYPHUS_PROD_IP}"
 alias csisyphus_prod_dtorres="ssh -i ~/.ssh/sisyphus-prod-dtorreskey.pem dtorres@${SISYPHUS_PROD_IP}"
+
+alias ckastorbackend="ssh -i ~/.ssh/kastor-backend-dev.pem ubuntu@${BACKEND_CORE_IP}"
 
 eval "$(oh-my-posh init zsh --config $HOME/.ohmybash.omp.json)"
 
