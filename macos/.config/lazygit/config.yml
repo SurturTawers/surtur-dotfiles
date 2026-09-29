@@ -1,0 +1,15 @@
+# Loaded via LG_CONFIG_FILE (see .zshrc); runtime state stays in ~/Library/Application Support/lazygit
+gui:
+  nerdFontsVersion: "3"
+  sidePanelWidth: 0.25
+  showDivergenceFromBaseBranch: arrowAndNumber
+git:
+  # cycle with | (reverse with \)
+  diffRenderers:
+    - name: delta
+      command: delta --dark --paging=never --line-numbers
+    - name: delta side-by-side
+      command: delta --dark --paging=never --side-by-side --line-numbers
+    - name: difftastic
+      type: extDiff
+      command: difft --color=always --context={{diffContext}}

@@ -82,6 +82,17 @@ sudo apt install neovim
 
 ```
 
+## LAZYGIT / GIT DIFFS
+
+- [lazygit](https://github.com/jesseduffield/lazygit): config in `.config/lazygit/config.yml`, loaded via `LG_CONFIG_FILE` in `.zshrc`
+- [delta](https://github.com/dandavison/delta): pager for git CLI and lazygit (configured in `.gitconfig`)
+- [difftastic](https://difftastic.wilfred.me.uk/): structural diff, alternate lazygit renderer (cycle with `|`)
+
+```bash
+brew install lazygit git-delta difftastic
+# ~/.config/lazygit is stowed like nvim/wezterm
+```
+
 ## .vimrc
 
 - vim

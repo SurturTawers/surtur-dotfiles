@@ -48,3 +48,6 @@ fpath=(/Users/david/.docker/completions $fpath)
 autoload -Uz compinit
 compinit
 # End of Docker CLI completions
+
+# lazygit: read config from dotfiles (~/.config/lazygit -> dotfiles/macos/.config/lazygit)
+export LG_CONFIG_FILE="$HOME/.config/lazygit/config.yml"

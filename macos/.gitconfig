@@ -7,7 +7,16 @@
 #	helper="!f() { test \"$1\" = get && echo \"password=$(cat ~/.tokendtkastor)\"; }; f"
 [core]
   editor = nvim
-	pager = less
+  pager = delta
+[interactive]
+  diffFilter = delta --color-only
+[delta]
+  line-numbers = true
+  dark = true
+[merge]
+  conflictStyle = zdiff3
+[diff]
+  colorMoved = default
 [filter "lfs"]
   smudge = git-lfs smudge -- %f
   process = git-lfs filter-process
