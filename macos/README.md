@@ -25,7 +25,8 @@ Machine-specific and sensitive settings stay outside the repo:
 | `~/.zshrc.local` | SSH shortcuts (`ck2`, `cfenix85`, ...), VPN aliases, loads `~/.servers` (sourced by `.zshrc` if present) |
 | `~/.servers` | `NAME_IP=...` server variables |
 | `~/.ssh/config` | SSH hosts, users and keys. Keys are passphrase-protected, passphrases live in the macOS Keychain (`UseKeychain yes`, `AddKeysToAgent yes`) |
-| `~/.openapitoken`, `~/.geminiapitoken` | API keys, exported by `.zshrc` if the files exist |
+| `~/.githubtoken` | GitHub token, used by this repo's git credential helper |
+| `~/.tokendtkastor` | Kastor GitHub token, used by the work repos' credential helper |
 
 Add a key's passphrase to the Keychain with `ssh-add --apple-use-keychain ~/.ssh/<key>`.
 

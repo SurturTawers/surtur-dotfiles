@@ -28,10 +28,6 @@ nvm() {
   nvm "$@"
 }
 
-# API keys, read from files outside the repo
-[ -r "$HOME/.openapitoken" ] && export OPENAI_API_KEY="$(<"$HOME/.openapitoken")"
-[ -r "$HOME/.geminiapitoken" ] && export GEMINI_API_KEY="$(<"$HOME/.geminiapitoken")"
-
 # Completions (Docker CLI completions first, then a single compinit)
 [ -d "$HOME/.docker/completions" ] && fpath=("$HOME/.docker/completions" $fpath)
 autoload -Uz compinit && compinit
