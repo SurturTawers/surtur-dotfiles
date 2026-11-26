@@ -106,24 +106,43 @@ ghostty +validate-config
 
 [Plugins](https://dotfyle.com/neovim/plugins/trending)
 
-- [neovim](https://github.com/neovim/neovim/blob/master/INSTALL.md)
-- fzf
-- ripgrep
-- php
-- python
-- lazygit
-- xdebug
-- cargo
-- make
-- delve
-- gcc
-- git
+- [neovim](https://github.com/neovim/neovim/blob/master/INSTALL.md) 0.12+ (uses native `vim.lsp.config`)
+- lazy.nvim; most plugins load on first use (empty startup ~25 ms)
+- LSP servers, formatters, linters and debug adapters install through Mason (`lua/surt/plugins/lsp/lsp-config.lua`)
+- debug adapters for nvim-dap live in `~/daps`
 
 ```bash
 brew install neovim ripgrep fd fzf tree-sitter-cli cmake php lazygit
-# Rust (cargo) is needed to build avante.nvim and codesnap.nvim
+# Rust (cargo) builds codesnap.nvim's screenshot generator on first install
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
+
+#### Code review keys
+
+Full guide with workflows: [`.config/nvim/GIT-REVIEW.md`](.config/nvim/GIT-REVIEW.md) (`<leader>g?` opens it inside nvim).
+
+| Keys | Action |
+|---|---|
+| `<leader>gvo` | Diffview: uncommitted changes |
+| `<leader>gvm` | Diffview: this branch vs the default branch (PR-style) |
+| `<leader>gvh` / `<leader>gvH` | Diffview: current file / repo history |
+| `<leader>gvc` | Diffview: close |
+| `]h` / `[h` | Next / previous hunk |
+| `<leader>hp` / `<leader>hb` | Preview hunk inline / blame line |
+| `<leader>hs` / `<leader>hr` | Stage / reset hunk (visual: selected lines) |
+| `<leader>hw` / `<leader>hB` | Toggle word diff / inline blame |
+| `<leader>hq` | All hunks in the repo into quickfix |
+| `[x` / `<leader>uc` | Jump to / toggle the pinned code context |
+| `<leader>lg` | LazyGit (`e` on a file opens it in this nvim) |
+
+#### Code screenshots (visual mode)
+
+| Keys | Action |
+|---|---|
+| `<leader>cc` | codesnap: copy to clipboard |
+| `<leader>cs` | codesnap: save to `~/Documents/code_screenshots/` |
+| `<leader>ch` | codesnap: copy with highlighted lines |
+| `<leader>cn` | Open in carbon.now.sh |
 
 ## LAZYGIT / GIT DIFFS
 
@@ -150,7 +169,7 @@ Same theme everywhere:
 | Zed (config kept, not stowed) | `"theme"` in `.config/zed/settings.json` |
 
 Palette: https://github.com/catppuccin/palette. To switch themes, change each line above
-(nightfox is still available in nvim, tmux and Zed).
+(nightfox is still available in tmux and Zed; nvim ships only Catppuccin).
 
 ## .vimrc
 

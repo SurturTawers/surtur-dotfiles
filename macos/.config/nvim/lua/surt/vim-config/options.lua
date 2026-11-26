@@ -35,3 +35,8 @@ options.signcolumn = "yes"
 options.termguicolors = true
 
 vim.o.autoread = true
+
+-- Diffs (diffview, gitsigns :diffthis, nvim -d): histogram aligns moved/edited code better,
+-- linematch pairs up changed lines inside a hunk, inline:char highlights the changed characters
+options.diffopt = "internal,filler,closeoff,indent-heuristic,algorithm:histogram,linematch:60,inline:char"
+options.fillchars:append({ diff = "╱" })

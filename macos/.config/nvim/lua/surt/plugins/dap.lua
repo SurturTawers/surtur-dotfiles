@@ -1,5 +1,15 @@
 return {
   "mfussenegger/nvim-dap",
+  -- loads on the first debug key press (the mappings are set in config below)
+  keys = {
+    { "<leader>db", desc = "Debug: toggle breakpoint" },
+    { "<leader>dc", desc = "Debug: continue" },
+    { "<leader>do", desc = "Debug: step over" },
+    { "<leader>di", desc = "Debug: step into" },
+    { "<leader>dO", desc = "Debug: step out" },
+    { "<leader>dq", desc = "Debug: terminate" },
+    { "<leader>du", desc = "Debug: toggle UI" },
+  },
   dependencies = {
     "nvim-neotest/nvim-nio",
     "rcarriga/nvim-dap-ui",

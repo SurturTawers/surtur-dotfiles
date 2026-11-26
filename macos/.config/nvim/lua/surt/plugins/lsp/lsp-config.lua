@@ -1,49 +1,38 @@
-local lsp_langs = {
+-- Languages in use: TS/JS, PHP, Python, SQL, Lua (config), plus Docker/YAML/JSON/Markdown/Bash
+local lsp_servers = {
 	"bashls",
-	"clangd",
 	"cssls",
-	"cssmodules_ls",
-	"css_variables",
 	"docker_compose_language_service",
 	"dockerls",
 	"eslint",
 	"html",
-	"intelephense",
-	"jedi_language_server",
+	"intelephense", -- PHP (premium features unlock with a licence in ~/intelephense/licence.txt)
 	"jsonls",
 	"lua_ls",
-	"marksman",
-	"pest_ls",
-	"phpactor",
-	"pyright",
+	"marksman", -- Markdown
+	"pyright", -- Python
 	"sqlls",
-	"svelte",
-	"tailwindcss",
 	"ts_ls",
 	"yamlls",
 }
 
-local lsp_formatters_linters_debuggers = {
-	--formatters
-	"prettier", --Angular, JS, TS, CSS, FLow, GraphQL, JSON, HTML, JSX, MD, SCSS, VUUE, YAML
-	"stylua", -- Lua, Luau
-	"isort", -- Python, sorts imports alphabetically
-	"black", -- Python
-	"blade-formatter", --Laravel Blade
-	"php-cs-fixer", --PHP
-	--linters
-	"pylint", --Python
-	"eslint_d", -- TS, JS
-	"markdownlint", -- MD
-	"yamllint", --yaml
-	"jsonlint", --JSON
-	"quick-lint-js", --JS, TS "Faster" than eslint
-	--debuggers
-	"bash-debug-adapter", --Bash
-	"js-debug-adapter", --JS, TS with chrome/node
-	"debugpy", --python
-	--"delve", --Go debugger
-	"php-debug-adapter", --PHP
+local tools = {
+	-- formatters (used by conform.nvim)
+	"prettier",
+	"stylua",
+	"isort",
+	"black",
+	"php-cs-fixer",
+	-- linters (used by nvim-lint)
+	"pylint",
+	"eslint_d",
+	"markdownlint",
+	"yamllint",
+	-- debug adapters (used by nvim-dap)
+	"bash-debug-adapter",
+	"js-debug-adapter",
+	"debugpy",
+	"php-debug-adapter",
 }
 
 return {
@@ -56,118 +45,79 @@ return {
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 		"hrsh7th/cmp-nvim-lsp",
 		{ "antosha417/nvim-lsp-file-operations", config = true },
-		{ "folke/lazydev.nvim", opts = {} },
+		{ "folke/lazydev.nvim", ft = "lua", opts = {} },
 	},
 	config = function()
-		local lspconfig = require("lspconfig")
-		local cmp_nvim_lsp = require("cmp_nvim_lsp")
-		local capabilities = cmp_nvim_lsp.default_capabilities()
-
-		local mason = require("mason")
-		local mason_lspconfig = require("mason-lspconfig")
-		local mason_tool_installer = require("mason-tool-installer")
-
-		mason.setup({
+		require("mason").setup({
 			ui = {
-				icons = {
-					package_installed = "✓",
-					package_pending = "➜",
-					package_uninstalled = "✗",
+				border = "rounded",
+				icons = { package_installed = "✓", package_pending = "➜", package_uninstalled = "✗" },
+			},
+		})
+
+		-- Settings shared by every server (nvim 0.11+ native LSP config)
+		vim.lsp.config("*", {
+			capabilities = require("cmp_nvim_lsp").default_capabilities(),
+		})
+		vim.lsp.config("lua_ls", {
+			settings = {
+				Lua = {
+					diagnostics = { globals = { "vim" } },
+					completion = { callSnippet = "Replace" },
 				},
 			},
 		})
 
-		mason_lspconfig.setup({
-			ensure_installed = lsp_langs,
-			handlers = {
-				-- Default handler to automatically setup all servers
-				function(server_name)
-					lspconfig[server_name].setup({
-						capabilities = capabilities,
-					})
-				end,
-				["lua_ls"] = function()
-					lspconfig["lua_ls"].setup({
-						capabilities = capabilities,
-						settings = {
-							Lua = {
-								diagnostics = { globals = { "vim" } },
-								completion = { callSnippet = "Replace" },
-							},
-						},
-					})
-				end,
+		vim.lsp.config("intelephense", {
+			settings = {
+				intelephense = {
+					environment = { phpVersion = "8.5.0" }, -- matches the projects' composer.json
+					files = { maxSize = 5000000 },
+				},
 			},
 		})
 
-		mason_tool_installer.setup({
-			ensure_installed = lsp_formatters_linters_debuggers,
+		-- Installs the servers and enables them with vim.lsp.enable()
+		require("mason-lspconfig").setup({
+			ensure_installed = lsp_servers,
+			-- stylua is installed as a formatter for conform; don't also start it as an LSP
+			automatic_enable = { exclude = { "stylua" } },
 		})
+		require("mason-tool-installer").setup({ ensure_installed = tools })
 
-		local keymap = vim.keymap
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 			callback = function(ev)
-				local opts = { buffer = ev.buf, silent = true }
-
-				-- set keybinds
-				opts.desc = "Show LSP references"
-				keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", opts)
-
-				opts.desc = "Go to declaration"
-				keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
-
-				opts.desc = "Show LSP definitions"
-				keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts)
-
-				opts.desc = "Show LSP implementations"
-				keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts)
-
-				opts.desc = "Show LSP type definitions"
-				keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts)
-
-				opts.desc = "See available code actions"
-				keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
-
-				opts.desc = "Smart rename"
-				keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
-
-				opts.desc = "Show buffer diagnostics"
-				keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", opts)
-
-				opts.desc = "Go to previous diagnostic"
-				keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
-
-				opts.desc = "Go to next diagnostic"
-				keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
-
-				opts.desc = "Show documentation for what is under cursor"
-				keymap.set("n", "K", vim.lsp.buf.hover, opts)
-
-				opts.desc = "Restart LSP"
-				keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts)
+				local map = function(mode, lhs, rhs, desc)
+					vim.keymap.set(mode, lhs, rhs, { buffer = ev.buf, silent = true, desc = desc })
+				end
+				map("n", "gR", "<cmd>Telescope lsp_references<CR>", "LSP references")
+				map("n", "gD", vim.lsp.buf.declaration, "Go to declaration")
+				map("n", "gd", "<cmd>Telescope lsp_definitions<CR>", "LSP definitions")
+				map("n", "gi", "<cmd>Telescope lsp_implementations<CR>", "LSP implementations")
+				map("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", "LSP type definitions")
+				map("n", "<leader>ls", "<cmd>Telescope lsp_document_symbols<CR>", "Document symbols")
+				map("n", "<leader>lS", "<cmd>Telescope lsp_dynamic_workspace_symbols<CR>", "Workspace symbols")
+				map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, "Code actions")
+				map("n", "<leader>rn", vim.lsp.buf.rename, "Rename symbol")
+				map("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", "Buffer diagnostics")
+				map("n", "[d", function() vim.diagnostic.jump({ count = -1, float = true }) end, "Previous diagnostic")
+				map("n", "]d", function() vim.diagnostic.jump({ count = 1, float = true }) end, "Next diagnostic")
+				map("n", "K", function() vim.lsp.buf.hover({ border = "rounded" }) end, "Documentation under cursor")
+				map("n", "<leader>rs", "<cmd>LspRestart<CR>", "Restart LSP")
 			end,
 		})
-
-		-- Modern Diagnostic configuration
-		local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
-		for type, icon in pairs(signs) do
-			local hl = "DiagnosticSign" .. type
-			vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-		end
 
 		vim.diagnostic.config({
 			signs = {
 				text = {
-					[vim.diagnostic.severity.ERROR] = signs.Error,
-					[vim.diagnostic.severity.WARN] = signs.Warn,
-					[vim.diagnostic.severity.HINT] = signs.Hint,
-					[vim.diagnostic.severity.INFO] = signs.Info,
+					[vim.diagnostic.severity.ERROR] = " ",
+					[vim.diagnostic.severity.WARN] = " ",
+					[vim.diagnostic.severity.HINT] = "󰠠 ",
+					[vim.diagnostic.severity.INFO] = " ",
 				},
 			},
-			virtual_text = {
-				prefix = "●",
-			},
+			virtual_text = { prefix = "●" },
 			update_in_insert = false,
 			underline = true,
 			severity_sort = true,
@@ -175,7 +125,7 @@ return {
 				focusable = false,
 				style = "minimal",
 				border = "rounded",
-				source = "always",
+				source = true,
 				header = "",
 				prefix = "",
 			},

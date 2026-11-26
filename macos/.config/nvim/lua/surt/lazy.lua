@@ -1,5 +1,5 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
 	vim.fn.system({
 		"git",
 		"clone",
@@ -15,7 +15,14 @@ require("lazy").setup({
 	{ import = "surt.plugins" },
 	{ import = "surt.plugins.lsp" },
 }, {
-	-- lazy applies this timeout to build steps too; avante's `make` now compiles
-	-- a large Rust workspace from source and needs well over the default 120s
-	git = { timeout = 900 },
+	-- lazy applies this timeout to build steps too (codesnap compiles Rust on `make`)
+	git = { timeout = 300 },
+	ui = { border = "rounded" },
+	change_detection = { notify = false },
+	performance = {
+		rtp = {
+			-- built-in runtime plugins this config never uses
+			disabled_plugins = { "gzip", "tarPlugin", "tohtml", "tutor", "zipPlugin", "netrwPlugin" },
+		},
+	},
 })

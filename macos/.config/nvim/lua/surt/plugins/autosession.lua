@@ -1,5 +1,8 @@
 return {
 	"rmagatti/auto-session",
+	-- after the UI is up, so it still auto-saves the session on exit
+	event = "VeryLazy",
+	cmd = { "SessionRestore", "SessionSave" },
 	config = function()
 		local auto_session = require("auto-session")
 

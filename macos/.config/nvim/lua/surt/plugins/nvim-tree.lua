@@ -1,7 +1,13 @@
 return {
 	"nvim-tree/nvim-tree.lua",
 	version = "*",
-	lazy = false,
+	cmd = { "NvimTreeToggle", "NvimTreeFindFileToggle", "NvimTreeOpen", "NvimTreeFocus" },
+	keys = {
+		{ "<leader>ntt", desc = "[N]vim[T]ree [T]oggle" },
+		{ "<leader>ntf", desc = "[N]vim[T]ree [F]ile toggle" },
+		{ "<leader>ntc", desc = "[N]vim[T]ree [C]ollapse" },
+		{ "<leader>ntr", desc = "[N]vim[T]ree [R]efresh" },
+	},
 	dependencies = {
 		"nvim-tree/nvim-web-devicons",
 	},

@@ -1,6 +1,26 @@
 return {
 	"nvim-telescope/telescope.nvim",
 	version = "*",
+	cmd = "Telescope",
+	init = function()
+		-- Load telescope (and its ui-select picker) the first time anything asks for vim.ui.select,
+		-- e.g. code actions, so pickers keep the telescope look without loading it at startup
+		---@diagnostic disable-next-line: duplicate-set-field
+		vim.ui.select = function(...)
+			require("lazy").load({ plugins = { "telescope.nvim" } })
+			return vim.ui.select(...)
+		end
+	end,
+	keys = {
+		{ "<leader>fs", desc = "Fuzzy find files in cwd" },
+		{ "<leader>fr", desc = "Fuzzy find recent files" },
+		{ "<leader>fg", desc = "Find string in cwd" },
+		{ "<leader>fc", desc = "Find string under cursor in cwd" },
+		{ "<leader>ft", desc = "Find todos" },
+		{ "<leader>fb", desc = "Git branches" },
+		{ "<leader>fh", desc = "Git commits for current file" },
+		{ "<leader><leader>", desc = "Find open buffers" },
+	},
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
@@ -41,6 +61,8 @@ return {
 		keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Find string in cwd" })
 		keymap.set("n", "<leader>fc", builtin.grep_string, { desc = "Find string under cursor in cwd" })
 		keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<cr>", { desc = "Find todos" })
+		keymap.set("n", "<leader>fb", builtin.git_branches, { desc = "Git branches" })
+		keymap.set("n", "<leader>fh", builtin.git_bcommits, { desc = "Git commits for current file" })
 		keymap.set("n", "<leader><leader>", builtin.buffers, { desc = "Find open buffers" })
 	end,
 }

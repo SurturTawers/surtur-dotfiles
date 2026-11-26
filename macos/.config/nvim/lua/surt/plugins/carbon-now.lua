@@ -1,12 +1,21 @@
-return {}
---[[
+-- Share code via carbon.now.sh (opens the selection in the browser, for styled or shareable images).
+--   <leader>cn  in visual mode
+-- For offline screenshots straight to the clipboard or a file, use codesnap (<leader>cc / <leader>cs).
 return {
 	"ellisonleao/carbon-now.nvim",
-	lazy = true,
 	cmd = "CarbonNow",
-	config = function()
-		require("carbon-now").setup({})
-	end,
-	vim.keymap.set("v", "<leader>cs", ":'<,'>CarbonNow<CR>", { desc = "[C]ode [S]creenshot", silent = true }),
+	keys = {
+		{ "<leader>cn", ":CarbonNow<CR>", mode = "x", silent = true, desc = "Open selection in carbon.now.sh" },
+	},
+	opts = {
+		options = {
+			theme = "night-owl",
+			font_family = "JetBrains Mono",
+			window_theme = "none",
+			line_numbers = true,
+			drop_shadow = true,
+			padding_horizontal = "32px",
+			padding_vertical = "32px",
+		},
+	},
 }
---]]

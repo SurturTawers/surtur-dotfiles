@@ -13,3 +13,7 @@ git:
     - name: difftastic
       type: extDiff
       command: difft --color=always --context={{diffContext}}
+os:
+  # From nvim's lazygit (<leader>lg), `e` opens the file in that same nvim instead of
+  # nesting a second one; from a plain shell it just starts nvim.
+  editPreset: "nvim-remote"

@@ -1,6 +1,7 @@
 return {
 	"stevearc/aerial.nvim",
-	opts = {},
+	cmd = { "AerialToggle", "AerialOpen", "AerialNavToggle" },
+	keys = { { "<leader>aet", desc = "[A]erial [T]oggle symbols outline" } },
 	-- Optional dependencies
 	dependencies = {
 		"nvim-treesitter/nvim-treesitter",
