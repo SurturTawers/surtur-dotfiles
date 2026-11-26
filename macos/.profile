@@ -1,5 +1,2 @@
-. "$HOME/.cargo/env"
-
-
-# Added by Antigravity CLI installer
-export PATH="/Users/david/.local/bin:$PATH"
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+export PATH="$HOME/.local/bin:$PATH"

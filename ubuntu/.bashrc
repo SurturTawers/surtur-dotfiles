@@ -122,38 +122,38 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-export PATH=$PATH:/home/surt/.spicetify
+export PATH="$PATH:$HOME/.spicetify"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/surt/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+__conda_setup="$("$HOME/anaconda3/bin/conda" 'shell.bash' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/home/surt/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/surt/anaconda3/etc/profile.d/conda.sh"
+    if [ -f "$HOME/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "$HOME/anaconda3/etc/profile.d/conda.sh"
     else
-        export PATH="/home/surt/anaconda3/bin:$PATH"
+        export PATH="$HOME/anaconda3/bin:$PATH"
     fi
 fi
 unset __conda_setup
 # <<< conda initialize <<<
-export PATH=$PATH:/home/surt/.local/bin
 export PATH="$PATH:/opt/nvim/bin"
-export PATH="/home/surt/development/flutter/bin:$PATH"
+export PATH="$HOME/development/flutter/bin:$PATH"
 
-eval "$(oh-my-posh init bash --config ~/.ohmybash.omp.json)"
+command -v oh-my-posh >/dev/null && eval "$(oh-my-posh init bash --config ~/.ohmybash.omp.json)"
 
+# Load Angular CLI autocompletion (only if the Angular CLI is installed)
+command -v ng >/dev/null && source <(ng completion script)
 
-# Load Angular CLI autocompletion.
-source <(ng completion script)
-export OPENAI_API_KEY="$(cat ~/.openapitoken)";
-export GEMINI_API_KEY="$(cat ~/.geminiapitoken)";
-. "$HOME/.cargo/env"
+# API keys, read from files outside the repo
+[ -r "$HOME/.openapitoken" ] && export OPENAI_API_KEY="$(<"$HOME/.openapitoken")"
+[ -r "$HOME/.geminiapitoken" ] && export GEMINI_API_KEY="$(<"$HOME/.geminiapitoken")"
 
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
 
-# Added by Antigravity CLI installer
-export PATH="/home/surt/.local/bin:$PATH"
+# User binaries (Antigravity CLI, ...)
+export PATH="$HOME/.local/bin:$PATH"
 
 # opencode
-export PATH=/home/surt/.opencode/bin:$PATH
+[ -d "$HOME/.opencode/bin" ] && export PATH="$HOME/.opencode/bin:$PATH"

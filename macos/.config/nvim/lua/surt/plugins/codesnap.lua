@@ -12,7 +12,7 @@ return {
 		title = "CodeSnap.nvim",
 		watermark = "",
 		bg_theme = "grape",
-		save_path = "/Users/david/Documents/code_screenshots",
+		save_path = os.getenv("HOME") .. "/Documents/code_screenshots",
 		has_line_number = true,
 		has_border = true,
 	},

@@ -8,7 +8,7 @@ return {
   config = function()
     local dap = require("dap")
     local dapui = require("dapui")
-    local daps_path = "/Users/david/daps/"
+    local daps_path = os.getenv("HOME") .. "/daps/"
     --local dap_python = require("dap-python")
 
     require("dapui").setup({

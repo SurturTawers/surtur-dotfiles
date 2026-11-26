@@ -1,57 +1,40 @@
-export PATH="/opt/homebrew/opt/php/bin:$PATH"
-export PATH="/opt/homebrew/opt/php/sbin:$PATH"
-autoload -Uz compinit && compinit
+# Homebrew PHP
+export PATH="/opt/homebrew/opt/php/bin:/opt/homebrew/opt/php/sbin:$PATH"
 
-#EXPORT THE SERVER IP VARIABLES AND USE IT ON ALIASES
-input="$HOME/.servers"
-while IFS= read -r line
-do
-  export "${line%=*}"="${line#*=}"
-done < "$input"
+# User binaries (Claude Code, Antigravity, Atlas CLI, ...)
+export PATH="$HOME/.local/bin:$PATH"
+[ -d "$HOME/.antigravity/antigravity/bin" ] && export PATH="$HOME/.antigravity/antigravity/bin:$PATH"
+[ -d "$HOME/.antigravity-ide/antigravity-ide/bin" ] && export PATH="$HOME/.antigravity-ide/antigravity-ide/bin:$PATH"
 
-alias ck2="ssh -i ~/.ssh/k2keydt dtorres@${K2_IP}"
-alias cfenix="ssh dtorres@${FENIX_IP}"
-#alias cfenix85="ssh dtorres@${FENIX85_IP}"
-alias cfenix85="ssh -i ~/.ssh/fenix85-dev-dtorreskey dtorres@${FENIX85_IP}"
-
-alias ckhawsan_old="ssh dtorres@${KHAWSAN_IP_OLD}"
-alias ckhawsan="ssh dtorres@${KHAWSAN_IP}"
-
-alias csisyphus_dev_ec2="ssh -i ~/.ssh/sisyphus-dev-masterkey.pem ec2-user@${SISYPHUS_DEV_IP}"
-alias csisyphus_dev_dtorres="ssh -i ~/.ssh/sisyphus-dev-dtorreskey.pem dtorres@${SISYPHUS_DEV_IP}"
-
-alias ckastorvpn="wg-quick up /Volumes/cred_encrypt/david-client.conf"
-alias dckastorvpn="wg-quick down /Volumes/cred_encrypt/david-client.conf"
-alias cbastionvpn="ssh -i ~/.ssh/kastor-vpn-davidkey dtorres@10.8.0.1"
-
-alias csisyphus_prod_ec2="ssh -i ~/.ssh/sisyphus-prod-masterkey.pem ec2-user@${SISYPHUS_PROD_IP}"
-alias csisyphus_prod_dtorres="ssh -i ~/.ssh/sisyphus-prod-dtorreskey.pem dtorres@${SISYPHUS_PROD_IP}"
-
-alias ckastorbackend="ssh -i ~/.ssh/kastor-backend-dev.pem ubuntu@${BACKEND_CORE_IP}"
+# Private, machine-local settings: SSH shortcuts, VPN, server variables.
+# Not tracked in this repo (see README > Private files).
+[ -f "$HOME/.zshrc.local" ] && source "$HOME/.zshrc.local"
 
 eval "$(oh-my-posh init zsh --config $HOME/.ohmybash.omp.json)"
 
+# nvm: put the default Node on PATH now, load nvm itself on first use (faster startup)
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+if [ -d "$NVM_DIR/versions/node" ]; then
+  _nvm_want=$(<"$NVM_DIR/alias/default" 2>/dev/null); _nvm_want=${_nvm_want#v}
+  _nvm_dirs=()
+  [[ $_nvm_want == [0-9]* ]] && _nvm_dirs=("$NVM_DIR"/versions/node/v${_nvm_want}*(N/n))
+  (( ${#_nvm_dirs} )) || _nvm_dirs=("$NVM_DIR"/versions/node/v*(N/n))
+  (( ${#_nvm_dirs} )) && export PATH="${_nvm_dirs[-1]}/bin:$PATH"
+  unset _nvm_want _nvm_dirs
+fi
+nvm() {
+  unfunction nvm
+  [ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
+  nvm "$@"
+}
 
-export OPENAI_API_KEY="$(cat ~/.openapitoken)";
-export GEMINI_API_KEY="$(cat ~/.geminiapitoken)";
+# API keys, read from files outside the repo
+[ -r "$HOME/.openapitoken" ] && export OPENAI_API_KEY="$(<"$HOME/.openapitoken")"
+[ -r "$HOME/.geminiapitoken" ] && export GEMINI_API_KEY="$(<"$HOME/.geminiapitoken")"
 
-# Added by Antigravity
-export PATH="/Users/david/.antigravity/antigravity/bin:$PATH"
-
-# Added by Antigravity IDE
-export PATH="/Users/david/.antigravity-ide/antigravity-ide/bin:$PATH"
-
-
-# Added by Antigravity CLI installer
-export PATH="/Users/david/.local/bin:$PATH"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-# The following lines have been added by Docker Desktop to enable Docker CLI completions.
-fpath=(/Users/david/.docker/completions $fpath)
-autoload -Uz compinit
-compinit
-# End of Docker CLI completions
+# Completions (Docker CLI completions first, then a single compinit)
+[ -d "$HOME/.docker/completions" ] && fpath=("$HOME/.docker/completions" $fpath)
+autoload -Uz compinit && compinit
 
 # lazygit: read config from dotfiles (~/.config/lazygit -> dotfiles/macos/.config/lazygit)
 export LG_CONFIG_FILE="$HOME/.config/lazygit/config.yml"

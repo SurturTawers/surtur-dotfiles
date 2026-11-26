@@ -1,0 +1,27 @@
+# Files stow must not link into ~ on this Mac.
+# This file replaces stow's built-in ignore list, so the defaults are repeated here.
+
+# stow defaults
+RCS
+.+,v
+CVS
+\.\#.+
+\.cvsignore
+\.svn
+_darcs
+\.hg
+\.git
+\.gitignore
+\.gitmodules
+.+~
+\#.*\#
+^/README.*
+^/LICENSE.*
+^/COPYING
+
+# Configs kept in the repo but not used on this Mac
+^/\.config/skhd
+^/\.config/yabai
+^/\.config/wezterm
+^/\.config/zed
+^/\.ideavimrc
