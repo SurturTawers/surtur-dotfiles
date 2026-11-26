@@ -72,8 +72,25 @@ Prefix is `C-x`. tpm: `prefix I` install, `prefix U` update, `prefix alt-u` clea
 | `prefix s` | Session and window picker |
 | `prefix [` then `v`, `C-v`, `y` | Copy mode (vi keys): select, rectangle, copy to clipboard |
 | `prefix r` | Reload config |
+| `prefix C` | New Claude task window (asks for a name) in session `agents` |
+| `prefix o` | Open a repo window in session `repos` (fuzzy picker) |
 | `prefix a` | Jump to the next Claude agent waiting for you |
 | `prefix A` | Pick any Claude agent window, with its state |
+
+#### Workspace layout
+
+Full guide with a typical day, every key and troubleshooting: [`.config/.tmux/WORKSPACE.md`](.config/.tmux/WORKSPACE.md)
+(`prefix h` opens it inside tmux).
+
+Two sessions, windows opened on demand and closed when done (keeps memory and restores small):
+
+| Session | Windows | Opened with |
+|---|---|---|
+| `agents` | One per task (`k2-pagos`, `fenix-hotfix`, ...), each running Claude from `~/kastor/sigmund` | `prefix C` |
+| `repos` | One per repo being worked on (nvim, lazygit, ssh), plus long-lived ones like `dotfiles` | `prefix o` |
+
+`prefix C` / `prefix o` switch to the window if it already exists. Scripts: `.config/.tmux/agent-new.sh`,
+`.config/.tmux/repo-open.sh` (repos offered: git repos in `~/kastor` and `~/daps`, plus `~/dotfiles`).
 
 #### Claude agent status
 

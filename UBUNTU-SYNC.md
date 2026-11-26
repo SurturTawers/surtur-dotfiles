@@ -173,6 +173,8 @@ Copy from `macos/` to `ubuntu/`:
 |---|---|
 | `.config/.tmux/.tmux.keybinds.conf` | as-is |
 | `.config/.tmux/claude-status.sh` | as-is, then `chmod +x` |
+| `.config/.tmux/agent-new.sh`, `.config/.tmux/repo-open.sh` | `prefix C` / `prefix o` workspace helpers, then `chmod +x`. Adjust paths if needed: agents start in `~/kastor/sigmund`, the picker lists git repos in `~/kastor` and `~/daps` plus `~/dotfiles` (ask the user where repos live on Ubuntu, e.g. `~/programming`) |
+| `.config/.tmux/WORKSPACE.md` | workspace manual opened with `prefix h`; update paths/keys if anything differs on Ubuntu (e.g. no AeroSpace, so `alt+1..9` is free) |
 | `.config/.tmux/.tmux.catppuccin.conf` | only if the user chose Catppuccin |
 | `.tmux.conf` | then adapt: keep the Ubuntu theme line if Nightfox, and ask whether to keep Ubuntu's transparency block (`status-style bg=default`, `window-style`, `window-active-style`), which is active on Ubuntu |
 
