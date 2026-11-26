@@ -256,6 +256,24 @@ tmux -L h kill-server    # expect: working, waiting, working, done, (empty)
 
 The user must restart running Claude sessions (or run `/hooks` once) for the hooks to load.
 
+### Version the Claude Code config (after the hooks work)
+
+macOS versions `settings.json`, `statusline-command.sh` and `CLAUDE.md` in `macos/.claude/` (see "Claude Code" in
+`macos/README.md`). Do the same on Ubuntu with **its own copies**, never the macOS files: Sigmund's radar installer
+writes this machine's absolute path into `settings.json`.
+
+```bash
+cd ~/dotfiles && mkdir -p ubuntu/.claude
+for f in settings.json statusline-command.sh CLAUDE.md; do [ -f ~/.claude/$f ] && cp -p ~/.claude/$f ubuntu/.claude/; done
+stow -n -v -t ~ ubuntu          # expect conflicts only for those files
+# then move the originals aside and run: stow -t ~ ubuntu
+ls -l ~/.claude/settings.json   # must point into dotfiles/ubuntu/.claude/
+```
+
+Check for secrets before committing (`grep -n -i -E 'token|key|secret|password' ubuntu/.claude/*`), and compare the
+status line script with `macos/.claude/statusline-command.sh` (it has no macOS-only commands, so the macOS one can
+be copied if Ubuntu has none).
+
 ## Step 5: lazygit config
 
 Copy `macos/.config/lazygit/config.yml` to `ubuntu/.config/lazygit/config.yml` (delta / delta side-by-side /

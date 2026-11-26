@@ -1,0 +1,92 @@
+{
+  "statusLine": {
+    "type": "command",
+    "command": "bash \"$HOME/.claude/statusline-command.sh\""
+  },
+  "enabledPlugins": {
+    "postman@claude-plugins-official": true
+  },
+  "theme": "dark-ansi",
+  "cleanupPeriodDays": 14,
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "test -x '/Users/david/kastor/sigmund/.claude/hooks/radar_bitacora.sh' && '/Users/david/kastor/sigmund/.claude/hooks/radar_bitacora.sh' || true",
+            "async": true,
+            "timeout": 60
+          },
+          {
+            "type": "command",
+            "command": "\"$HOME/.config/.tmux/claude-status.sh\" done 2>/dev/null || true",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "test -x '/Users/david/kastor/sigmund/.claude/hooks/radar_bitacora.sh' && '/Users/david/kastor/sigmund/.claude/hooks/radar_bitacora.sh' || true",
+            "async": true,
+            "timeout": 60
+          },
+          {
+            "type": "command",
+            "command": "\"$HOME/.config/.tmux/claude-status.sh\" clear 2>/dev/null || true",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$HOME/.config/.tmux/claude-status.sh\" clear 2>/dev/null || true",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$HOME/.config/.tmux/claude-status.sh\" working 2>/dev/null || true",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$HOME/.config/.tmux/claude-status.sh\" notify 2>/dev/null || true",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$HOME/.config/.tmux/claude-status.sh\" resume 2>/dev/null || true",
+            "async": true,
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}

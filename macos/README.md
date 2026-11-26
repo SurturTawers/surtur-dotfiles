@@ -30,6 +30,27 @@ Machine-specific and sensitive settings stay outside the repo:
 
 Add a key's passphrase to the Keychain with `ssh-add --apple-use-keychain ~/.ssh/<key>`.
 
+## Claude Code (`.claude/`)
+
+Stow links these files into the existing `~/.claude/` folder; everything else in it is runtime data
+(conversations, history, caches, background jobs) and stays out of the repo.
+
+| File | Holds |
+|---|---|
+| `.claude/settings.json` | Theme, `cleanupPeriodDays: 14`, status line, enabled plugins, and hooks: the tmux agent status (`claude-status.sh`, see `.config/.tmux/WORKSPACE.md`) and Sigmund's radar |
+| `.claude/statusline-command.sh` | Status line, mirroring the oh-my-posh theme |
+| `.claude/CLAUDE.md` | Instructions for every session (the Postman CLI block is maintained by Postman's installer) |
+
+- **Per machine on purpose.** Sigmund's `scripts/git-policy/install.sh` writes the radar hook into `settings.json`
+  with this machine's absolute path to `radar_bitacora.sh` (and checks that exact path), so the Ubuntu machine keeps
+  its own `ubuntu/.claude/settings.json`. Re-running the installer edits the file through the link, which is fine.
+- **Check the links now and then:** `ls -l ~/.claude/settings.json` must show `-> ../dotfiles/macos/.claude/…`.
+  If an app ever replaces the file instead of editing it, the link turns into a plain file: copy it back over
+  `macos/.claude/settings.json`, delete it, and run `stow -t ~ macos` again.
+- **Not versioned:** `~/.claude.json` (account, project trust, caches and some `/config` preferences),
+  `~/.claude/skills/` (AWS skills from their installer, plus skills synced from claude.ai), and keybindings (only
+  defaults today; add `.claude/keybindings.json` here once something is customized).
+
 ## .zshrc
 
 - Node: the default nvm version goes on `PATH` at startup; `nvm` itself loads on first use (keeps shell startup fast)
