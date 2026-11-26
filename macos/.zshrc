@@ -13,12 +13,18 @@ done < "$input"
 
 alias ck2="ssh -i ~/.ssh/k2keydt dtorres@${K2_IP}"
 alias cfenix="ssh dtorres@${FENIX_IP}"
-alias cfenix85="ssh dtorres@${FENIX85_IP}"
-alias ckastorvpn="wg-quick up david-client"
-alias dckastorvpn="wg-quick down david-client"
+#alias cfenix85="ssh dtorres@${FENIX85_IP}"
+alias cfenix85="ssh -i ~/.ssh/fenix85-dev-dtorreskey dtorres@${FENIX85_IP}"
+
+alias ckhawsan_old="ssh dtorres@${KHAWSAN_IP_OLD}"
+alias ckhawsan="ssh dtorres@${KHAWSAN_IP}"
 
 alias csisyphus_dev_ec2="ssh -i ~/.ssh/sisyphus-dev-masterkey.pem ec2-user@${SISYPHUS_DEV_IP}"
 alias csisyphus_dev_dtorres="ssh -i ~/.ssh/sisyphus-dev-dtorreskey.pem dtorres@${SISYPHUS_DEV_IP}"
+
+alias ckastorvpn="wg-quick up /Volumes/cred_encrypt/david-client.conf"
+alias dckastorvpn="wg-quick down /Volumes/cred_encrypt/david-client.conf"
+alias cbastionvpn="ssh -i ~/.ssh/kastor-vpn-davidkey dtorres@10.8.0.1"
 
 alias csisyphus_prod_ec2="ssh -i ~/.ssh/sisyphus-prod-masterkey.pem ec2-user@${SISYPHUS_PROD_IP}"
 alias csisyphus_prod_dtorres="ssh -i ~/.ssh/sisyphus-prod-dtorreskey.pem dtorres@${SISYPHUS_PROD_IP}"

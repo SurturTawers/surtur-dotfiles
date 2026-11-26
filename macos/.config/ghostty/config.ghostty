@@ -5,11 +5,11 @@
 theme = Catppuccin Mocha
 font-family = JetBrainsMono Nerd Font Mono
 font-size = 12
-window-padding-x = 0
-window-padding-y = 0
+window-padding-x = 8
+window-padding-y = 6
 window-padding-balance = true
 # tmux handles tabs/splits; aerospace handles window placement
-macos-titlebar-style = hidden
+macos-titlebar-style = transparent
 mouse-hide-while-typing = true
 
 # --- Keys ---
