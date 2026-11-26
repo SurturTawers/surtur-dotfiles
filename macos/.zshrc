@@ -46,9 +46,6 @@ export PATH="/Users/david/.antigravity-ide/antigravity-ide/bin:$PATH"
 
 # Added by Antigravity CLI installer
 export PATH="/Users/david/.local/bin:$PATH"
-
-# opencode
-export PATH=/Users/david/.opencode/bin:$PATH
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 # The following lines have been added by Docker Desktop to enable Docker CLI completions.
 fpath=(/Users/david/.docker/completions $fpath)
