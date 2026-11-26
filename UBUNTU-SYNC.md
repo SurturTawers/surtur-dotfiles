@@ -12,6 +12,8 @@ The macOS side (`macos/`) was cleaned up and improved on 2026-11-26; this file s
 - **Never print secrets.** Check variables with `[ -n "$VAR" ] && echo set`, never `echo "$VAR"`.
   Check files with `wc -c`, never `cat`. (A key was leaked this way on the Mac; don't repeat it.)
 - Work in the order below; each step ends with a verification. Stop and report if one fails.
+- **Don't touch the user's tmux sessions.** Test tmux only on a separate socket (`tmux -L <name>`) with a
+  plugin-free config (see step 3), and kill only servers you started.
 - Leave the commit to the user unless they ask; suggest a message per step.
 
 ## What the repo looks like
@@ -195,8 +197,14 @@ Clean unused tmux plugins (on macOS the old catppuccin/kanagawa plugin dirs were
 
 ### Verify step 3
 
+**Never start a test tmux server with the real `~/.tmux.conf`.** It loads tmux-continuum, which restores
+all the user's saved sessions into the test server, and auto-saves; killing the test server mid-restore
+left a stuck process on macOS that made the user's real tmux skip its restore, and the auto-save then
+overwrote the `last` save. Test with a plugin-free copy:
+
 ```bash
-tmux -L t -f ~/.tmux.conf new-session -d -c ~/dotfiles && sleep 1
+sed -E '/@plugin|@continuum|@resurrect|tpm\/tpm/d' ~/.tmux.conf > /tmp/tmux-test.conf
+tmux -L t -f /tmp/tmux-test.conf new-session -d -c ~/dotfiles && sleep 1
 for o in focus-events history-limit base-index mode-keys; do echo "$o=$(tmux -L t show -gv $o 2>/dev/null || tmux -L t show -gwv $o)"; done
 tmux -L t set -w @claude_state waiting
 tmux -L t display -p '#{T:window-status-current-format}' | sed -E 's/#\[[^]]*\]//g'   # expect "● dotfiles"
@@ -204,7 +212,11 @@ tmux -L t display -p '#{T:status-right}' | sed -E 's/#\[[^]]*\]//g'             
 tmux -L t kill-server
 ```
 
-Then in the user's real tmux: `prefix r` to reload.
+Then in the user's real tmux: `prefix r` to reload, and **right after, save with `prefix C-s`**.
+The new config numbers windows and panes from 1; saves made with the old numbering (from 0) restore
+with a duplicated pane in every single-pane window (tmux-resurrect thinks pane 0 is missing). A fresh
+save after the reload avoids that. If it happens anyway, the duplicates are the newest pane in each
+affected window. Compare against the save file before closing anything.
 
 ## Step 4: Claude Code hooks (agent status)
 
