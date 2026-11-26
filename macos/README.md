@@ -60,10 +60,35 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 tmux attach
 ```
 
-- ctrl + <leader>, shift + u
-  - update tpm plugins
-- ctrl + <leader>, shift + i
-  - install tpm plugins
+Prefix is `C-x`. tpm: `prefix I` install, `prefix U` update, `prefix alt-u` clean plugins.
+
+| Keys | Action |
+|---|---|
+| `prefix \|` / `prefix -` / `prefix c` | Split right / below / new window, in the current folder |
+| `prefix 1..9`, `prefix tab` | Go to window N / previous window (`alt 1..9` belongs to AeroSpace workspaces) |
+| `ctrl h/j/k/l` | Move between panes and nvim splits (vim-tmux-navigator) |
+| `prefix H/J/K/L` (repeat), `prefix m` | Resize pane / zoom pane (alt + arrows stay free for Claude Code, zsh and nvim) |
+| `prefix g` | lazygit popup in the current folder |
+| `prefix s` | Session and window picker |
+| `prefix [` then `v`, `C-v`, `y` | Copy mode (vi keys): select, rectangle, copy to clipboard |
+| `prefix r` | Reload config |
+| `prefix a` | Jump to the next Claude agent waiting for you |
+| `prefix A` | Pick any Claude agent window, with its state |
+
+#### Claude agent status
+
+Claude Code hooks (in `~/.claude/settings.json`, outside this repo) call `.config/.tmux/claude-status.sh`,
+which marks each tmux window running Claude:
+
+| Tab | Meaning |
+|---|---|
+| `⚙ name` | working |
+| `● name` (peach, bell) | waiting for your approval or input |
+| `✓ name` (green) | finished its turn, ready for review |
+
+The status bar shows `● N waiting` while any agent in the session needs you. Hooks used:
+`UserPromptSubmit` → working, `Notification` → waiting, `PostToolUse` → back to working after an
+approval, `Stop` → done, `SessionStart`/`SessionEnd` → clear.
 
 Themes live in `.config/.tmux/.tmux.<theme>.conf`; uncomment one `source-file` line in `.tmux.conf`.
 Active: `.tmux.catppuccin.conf`, plain styles (no catppuccin/tmux plugin needed):
@@ -143,7 +168,6 @@ Full guide with workflows: [`.config/nvim/GIT-REVIEW.md`](.config/nvim/GIT-REVIE
 | `<leader>cc` | codesnap: copy to clipboard |
 | `<leader>cs` | codesnap: save to `~/Documents/code_screenshots/` |
 | `<leader>ch` | codesnap: copy with highlighted lines |
-| `<leader>cn` | Open in carbon.now.sh |
 
 ## LAZYGIT / GIT DIFFS
 

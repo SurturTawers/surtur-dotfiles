@@ -20,7 +20,6 @@ return {
 			{ "<leader>u", group = "Toggle" },
 			{ "<leader>w", group = "Workspace session" },
 
-			{ "<leader>q", desc = "Exit to explorer" },
 			{ "<leader>mp", desc = "Format file or range" },
 			{ "]t", desc = "Next todo comment" },
 			{ "[t", desc = "Previous todo comment" },

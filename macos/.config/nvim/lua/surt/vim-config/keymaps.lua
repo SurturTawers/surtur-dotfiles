@@ -2,8 +2,6 @@ local keymap = vim.keymap
 
 vim.g.mapleader = " "
 
--- EXIT TO EXPLORER
-keymap.set("n", "<leader>q", vim.cmd.Ex, { desc = "Exit to explore window" })
 -- SPLITS
 keymap.set("n", "<leader>sv", "<C-w>v", { desc = "[S]plit [V]ertically" })
 keymap.set("n", "<leader>sh", "<C-w>s", { desc = "[S]plit [H]orizontally" })
