@@ -31,15 +31,26 @@ return {
 		local telescope = require("telescope")
 		local actions = require("telescope.actions")
 
+		-- Include hidden files (dotfiles) in searches, but never .git internals.
+		-- .gitignore is still respected, so node_modules, vendor, build output, ... stay out.
+		local vimgrep_arguments = { unpack(require("telescope.config").values.vimgrep_arguments) }
+		vim.list_extend(vimgrep_arguments, { "--hidden", "--glob", "!**/.git/*" })
+
 		telescope.setup({
 			defaults = {
 				path_display = { "truncate " },
+				vimgrep_arguments = vimgrep_arguments, -- live_grep and grep_string
 				mappings = {
 					i = {
 						["<C-k>"] = actions.move_selection_previous, -- move to prev result
 						["<C-j>"] = actions.move_selection_next, -- move to next result
 						["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
 					},
+				},
+			},
+			pickers = {
+				find_files = {
+					find_command = { "fd", "--type", "f", "--hidden", "--exclude", ".git", "--strip-cwd-prefix" },
 				},
 			},
 			extensions = {
